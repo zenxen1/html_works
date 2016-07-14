@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>회원가입 양식 유효성 체크</title>
+	<link rel="stylesheet" type="text/css" href="/css/mystyle.css" />
+	<script>
+	var year,month,date;
+
+		window.addEventListener("load",function(){
+			init();
+		});
+
+		function init(){
+			form1.mid.focus();
+			
+
+			var d = new Date();
+
+			year = d.getFullYear();
+			month = d.getMonth()+1;
+			date = d.getDate();
+			console.log(date);
+
+			//jump2에 대한 이벤트 적용
+			form1.jumin2.addEventListener("keyup",function(){
+				checkGender();
+
+			});
+
+			setBirth();
+			getMail();
+		}
+		
+		function checkGender(){
+			//문자열의 제일 앞자리가 1,2인지 알아보자!!
+			var g = form1.jumin2.value.charAt(0);
+			//1이면 남자 radio 박스 true, 2이면 여자 radie 박스 true
+			if(g==1){
+				form1.gender[0].checked = true;
+			}else if(g==2){
+				form1.gender[1].checked = true;
+			}
+		
+		}
+	
+		function regist(){
+			//ID 유효성 체크!!
+			if(form1.mid.value==""){
+				alert("아이디를 입력하세요");
+				form1.mid.focus();
+				return;
+			}else if(form1.pwd.value==""){     //password에대한 유효성 체크
+				alert("비밀번호를 입력하세요");
+				form1.pwd.focus();
+				return;
+			}else if(form1.pwd.value != form1.pwd2.value){		//두개의 패스워드가 서로 틀리면 욕!!
+				alert("패스워드가 일치하지 않습니다");
+				form1.pwd2.value="";
+				form1.pwd2.focus();
+				return;
+			}else if(form1.m_name.value.length<1){
+				//String 객체의 length 속성
+				//String 객체는 new 연산자등을 사용하지 않더라도, 문자열이 메로리에 올라오기만 하면 그자체의 데이터가 곧 string 객체이다.
+				alert("이름을 입력하시오");
+				form1.m_name.focus();
+				return;
+			}
+			form1.action="http://daum.net";
+			form1.submit();
+		}
+
+		function setBirth(){
+		
+			for(var i=2020; i>1983;i--){
+				var op = document.createElement("option");
+				op.text = i;
+				if(i==year){
+					op.selected=true;
+				}
+				form1.yy.add(op);
+			}
+			for(var i=1; i<=12;i++){
+				var op = document.createElement("option");
+				op.text = i;
+				if(i==month){
+					op.selected=true;
+				}
+				form1.mm.add(op);
+
+			}
+			for(var i=1; i<31;i++){
+				var op = document.createElement("option");
+				op.text = i;
+				if(i==date){
+					op.selected=true;
+				}
+				form1.dd.add(op);
+			}
+
+		}
+
+		function getMail(){
+
+			var mailArr = new Array ("naver.com", "google.com","daum.net","nate.com");  
+			for(var i=0;i<mailArr.length;i++){
+				var op = document.createElement("option");
+				op.text = mailArr[i];
+				form1.mail_server.add(op);
+			}
+
+		}
+		function findZip(){
+			//새창을 띄운다!! (window 객체의 api 활용)
+			window.open("zipcode.html","pop","width=400px,height=500px,left=500px,top=100px,resizable=no");
+		}
+
+	</script>
+</head>
+<body>
+<form name="form1">
+<table width="600"px border="1px" align="center">
+	<tr>
+		<td>아이디</td>
+		<td ><input type="text" name="mid"></td>
+	</tr>
+	<tr>
+		<td>패스워드</td>
+		<td ><input type="password" name="pwd"></td>
+	</tr>
+	<tr>
+		<td>패스워드 확인</td>
+		<td ><input type="password" name="pwd2"></td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td ><input type="text" name="m_name"></td>
+	</tr>
+	<tr>
+		<td>주민번호</td>
+		<td >
+			<input type="text" name="jumin1">
+			-
+			<input type="text" name="jumin2">
+		</td>
+	</tr>
+	<tr>
+		<td>성별</td>
+		<td >
+			<input type="radio" name="gender">남
+			<input type="radio" name="gender">여
+		</td>
+	</tr>
+	<tr>
+		<td>생년월일</td>
+		<td >
+			<select name="yy"></select>년
+			<select name="mm"></select>월
+			<select name="dd"></select>일
+		</td>
+	</tr>
+	<td>우편번호</td>
+		<td >
+			<input type="text" name="zipcode1" readonly>
+			-
+			<input type="text" name="zipcode2" readonly>
+			<input type="button" value="우편번호검색" onClick="findZip()">
+		</td>
+	</tr>
+	<td>주소</td>
+		<td >
+			<input type="text" name="add1"><br>
+			<input type="text" name="add2">
+		</td>
+	</tr>
+	<tr>
+		<td>이메일</td>
+		<td >
+			<input type="text" name="mail_id">
+			@
+			<select name="mail_server"></select>
+		</td>
+	</tr>
+	<tr>
+		<td>연락처</td>
+		<td >
+			<select name="tel1"></select>
+			-<input type="text" name="tel2">
+			-<input type="text" name="tel3">
+		</td>
+		<tr>
+		<td>취미</td>
+		<td >
+			*반드시 2개 이상은 선택하셔야 합니다. <br>
+			여행<input type="checkbox" >
+			게임<input type="checkbox">
+			영화<input type="checkbox">
+			스포츠<input type="checkbox">
+			요리<input type="checkbox">
+		</td>
+	</tr>
+	<tr>
+		<td>남길메세지</td>
+		<td >
+			<textarea name="msg" rows="5" cols="50"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="button" value="회원가입" onClick="regist()">
+			<input type="button" value="다시작성">
+		</td>
+	</tr>
+
+</table>
+</form>
+</body>
+</html>

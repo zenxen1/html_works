@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> 슈렉 갤러리</title>
+	<style>
+	
+	body{
+		margin: 0px;
+	}
+	#wrapper{
+		width:500px;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:200px;
+		text-align:center;
+		font-size:15pt;
+	}
+	#mask{
+		width:500px;
+		height:340px;
+		overflow:hidden;
+	}
+	#box{
+		width:500px;
+		height:340px;
+		margin: 0px;
+		position:relative;
+		left:0px;
+		top:0px;
+	}
+
+	a{
+		text-decoration:none; /*밑줄없애기*/
+		color:black;
+	}
+	/* 마우스올려놓을시 */
+	a:hover{
+		color:red;
+	}
+		
+
+	
+	</style>
+	<script>
+	/*var box;
+	var arr = [
+				"../images/shurek/img0.jpg",
+				"../images/shurek/img1.jpg",
+				"../images/shurek/img2.jpg",
+				"../images/shurek/img3.jpg",
+				"../images/shurek/img4.jpg",
+				"../images/shurek/img5.jpg"
+				];
+
+	function init(){
+		box = document.getElementById("box");
+		var img = document.createElement("img");
+		
+	
+		img.src=arr[0];
+		
+		box.appendChild(img);
+	
+	
+	
+	}
+	
+	function showImg(){
+		var box=document.getElementById("box");
+		box.style.left=-500+"px";
+	}
+
+	*/</script>
+
+
+</head>
+<body>
+	<div id="wrapper">
+		<div id="mask">
+			<div id="box">
+				<img src="../images/shurek/img0.jpg">
+			</div>
+		</div>
+		<a href="">●</a>
+	    <a href="javascript:showImg()">●</a>
+		<a href="">●</a>
+		<a href="">●</a>
+		<a href="">●</a>
+		<a href="">●</a>
+	</div>
+</body>
+</html>

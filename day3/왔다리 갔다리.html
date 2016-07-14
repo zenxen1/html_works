@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>왔다리 갔다리</title>
+</head>
+<style>
+#pic{
+	position:absolute;
+	left:0px;
+	top:200px;
+}
+</style>
+
+<script>
+var x=0;
+var bg=true;
+//이미지의 위치가 500위치에 도달하면 다시 돌아오되, 
+//0에 도달하면 다시 반다로 ...증가...(왔다리 갔다리 하게끔...)
+function move(){
+	//문서내에 pic이라 불리는 이미지의 스타일 위치 속성을 x축 증가시킴
+	if(x==500){
+		bg=false;
+	}
+	if(x==0){
+		bg=true;
+	}
+	
+	
+	if(bg==true){
+		x+=10;
+		console.log(x);
+		document.getElementById("pic").style.left=x+"px";
+	}
+	if(bg==false){
+		x-=10;
+		console.log(x);
+		document.getElementById("pic").style.left=x+"px";
+	}
+
+}
+</script>
+<body>
+	<input type="button" value="움직이기" onclick="move()">
+	<br>
+	<img src="../images/1.jpg" id="pic">
+</body>
+</html>

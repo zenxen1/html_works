@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>채팅효과내기</title>
+	<script>
+	var chatA;
+	var chatB;
+
+	function openClient(){
+		//채팅을 할 두 클라이언트 띄우기
+		var spec1 = "width=300px,height=450px,left=100px,top=200px";
+		chatA = window.open("ChatA.html","pop1",spec1);
+		var spec2 = "width=300px,height=450px,left=500px,top=200px";
+		chatB = window.open("ChatB.html","pop2",spec2);
+	}
+	</script>
+</head>
+<body>
+<a href="javascript:openClient()">채팅 클라이언트 띄우기</a>
+</body>
+</html>

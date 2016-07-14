@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>취화선 물고기</title>
+	<style>
+	#stage{
+		width:100%px;
+		height:700px;
+		border:1px solid red;
+	
+	}
+	</style>
+	<script src="../lib/Fish.js"></script>
+	<script>
+	var stage;
+	
+	window.addEventListener("load",function(){
+		
+		init();
+	});
+
+	function init(){
+		stage = document.getElementById("stage");
+		
+				
+
+		stage.addEventListener("mousemove",function(){
+			var fish = new Fish(stage,50,50,event.clientX,event.clientY);
+			fish.init();
+			fish.targetX = event.clientX;
+			fish.targetY = event.clientY;
+			console.log(event.clientX);
+		});
+
+	
+	}
+
+	</script>
+</head>
+<body>
+<div id="stage">
+
+</body>
+</html>

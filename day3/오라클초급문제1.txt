@@ -1,0 +1,184 @@
+
+1.급여의 합을 출력하시오.
+
+SQL> select sum(sal) from emp;
+
+  SUM(SAL)
+----------
+     36225
+
+2.부서별 급여의 합을 출력하시오.
+
+SQL> select deptno, sum(sal) from emp group by deptno;
+
+    DEPTNO   SUM(SAL)
+---------- ----------
+        30       9400
+                 8000
+        20      10075
+        10       8750
+
+3.평균 급여를 출력하시오.
+
+SQL> select avg(sal) from emp;
+
+  AVG(SAL)
+----------
+    2587.5
+
+4.부서별 평균 급여를 출력하시오.
+
+SQL> select deptno, avg(sal) from emp group by deptno;
+
+    DEPTNO   AVG(SAL)
+---------- ----------
+        30 1566.66667
+                 8000
+        20    2518.75
+        10 2916.66667
+
+5.최대급여를 출력하시오.
+
+SQL> select max(sal) from emp;
+
+  MAX(SAL)
+----------
+      8000
+
+6.부서별 최대급여를 출력하시오.
+
+SQL> select deptno, max(sal) from emp group by deptno;
+
+    DEPTNO   MAX(SAL)
+---------- ----------
+        30       2850
+                 8000
+        20       3000
+        10       5000
+
+7.최소급여를 출력하시오.
+
+SQL> select min(sal) from emp;
+
+  MIN(SAL)
+----------
+       950
+
+8.부서별 최소급여를 출력하시오.
+
+SQL> select deptno,min(sal) from emp group by deptno;
+
+    DEPTNO   MIN(SAL)
+---------- ----------
+        30        950
+                 8000
+        20       1100
+        10       1300
+
+9.사원수, 급여의합, 평균급여,최대급여,최소급여를 출력하시오.
+
+select count(*),sum(sal),avg(sal),max(sal),min(sal) from emp;
+
+SQL> select count(empno), sum(sal), avg(sal), max(sal), min(sal) from emp
+  2  ;
+
+COUNT(EMPNO)   SUM(SAL)   AVG(SAL)   MAX(SAL)   MIN(SAL)
+------------ ---------- ---------- ---------- ----------
+          14      36225     2587.5       8000        950
+
+10.이름이 A자로 시작하는 사원들의 급여의 합을 출력하시오.
+
+SQL> select sum(sal) from emp where ename like 'A%';
+
+  SUM(SAL)
+----------
+      2700
+
+11.최대급여와 최소급여의 차를 출력하시오.
+
+SQL> select max(sal)-min(sal) from emp;
+
+MAX(SAL)-MIN(SAL)
+-----------------
+             7050
+
+12.커미션이 0 인 사원의 이름, 커미션을 출력
+
+SQL> select ename, comm from emp where comm = 0;
+
+ENAME                      COMM
+-------------------- ----------
+TURNER                        0
+
+13.커미션 계약을 하지 않은 사원의 이름을 출력
+
+SQL> select ename, comm from emp where comm is NULL;
+
+ENAME                      COMM
+-------------------- ----------
+JONES
+BLAKE
+CLARK
+SCOTT
+킹왕짱
+ADAMS
+JAMES
+FORD
+MILLER
+미생
+
+14.입사일이 81/06/09보다 늦은 사원의 이름, 입사일 출력
+
+SQL> select ename, hiredate from emp where hiredate > '81/06/09';
+
+ENAME                HIREDATE
+-------------------- --------
+MARTIN               81/09/28
+SCOTT                87/04/19
+킹왕짱               81/11/17
+TURNER               81/09/08
+ADAMS                87/05/23
+JAMES                81/12/03
+FORD                 81/12/03
+MILLER               82/01/23
+
+--------------------------------------------------------------------
+방금 벗어난 초급 수준
+
+15.최소급여를 받는 사원의 이름, 입사입, 급여
+
+SQL> select ename, hiredate, sal from emp where sal=(select min(sal) from emp);
+
+ENAME                HIREDATE        SAL
+-------------------- -------- ----------
+JAMES                81/12/03        950
+
+16. 업무가 영업인 사원들의 평균 급여보다 많은 급여를 받는 사원의 이름, 급여를 출력하시오.
+
+SQL> select ename, sal from emp where sal > (select avg(sal) from emp where job = 'SALESMAN');
+
+ENAME                       SAL
+-------------------- ----------
+JONES                      2975
+BLAKE                      2850
+SCOTT                      3000
+킹왕짱                     5000
+FORD                       3000
+미생                       8000
+
+17. SCOTT의 사수의 이름, 급여를 출력하시오!!
+
+SQL> select ename, sal from emp where empno = (select mgr from emp where ename = 'SCOTT');
+
+ENAME                       SAL
+-------------------- ----------
+JONES                      2975
+
+
+
+
+
+
+
+
+ 

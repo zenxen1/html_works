@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>연산자문제풀이4번</title>
+
+<script>
+//프로그램 영역과 디자인 영역은 차이가 있다. 프로그램은 실행중에 변경가능. 디자인은 안됨.
+/*
+4가 나오는 원인은? 증감 연산자 중 ++, -- 연산자는 
+피연산자의 앞,뒤 모두에 사용가능한데.. 특히 뒤에 올경우
+우선순위가 후순위가 된다
+*/
+var b=3;
+b++;
+document.write(b++);
+document.write(b);
+</script>
+</head>
+
+<body>
+
+사과 
+</body>
+</html>

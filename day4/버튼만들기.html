@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>버튼만들기</title>
+	<style>
+	input{
+		width:150px;
+		height:45px;
+		background:red;
+		color:black;
+
+	</style>
+	
+	<script>
+
+	var w = prompt("버튼의 수를 입력하시오");
+
+	for(var i=1;i<=w;i++){
+		
+		document.write("<input type=\"button\" value=\""+i+"\">");
+		if(i%5==0){
+			document.write("<br>");
+		}
+	}
+
+	</script>
+
+
+</head>
+<body>
+
+	
+</body>
+</html>

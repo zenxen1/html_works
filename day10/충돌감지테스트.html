@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>충돌감지테스트</title>
+	
+	<style>
+	#box1, #box2{
+	width:100px;
+	height:100px;
+	position:absolute;
+	}
+	#box1{
+		background:orange;
+		left:100px;
+		top:100px;
+	}
+	#box2{
+		background:yellow;
+		left:500px;
+		top:300px;
+	}
+	</style>
+	<script src="../lib/lib.js"></script>
+	<script>
+	var box1;
+	var box2;
+
+	window.addEventListener("load",function(){
+		
+		box1=document.getElementById("box1");
+		box2=document.getElementById("box2");
+		
+		box1.addEventListener("mousemove",function(){
+			box1.style.left = (event.clientX-50) + "px";
+			box1.style.top = (event.clientY-50) + "px";
+
+			//충돌감지~
+			var result=hitTest(box1,box2);
+
+			if(result){
+				box2.innerText="충돌했어요!!";
+			}else{
+				box2.innerText="";
+			}
+		
+		
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="box1" style="position:absolute;left:100px;top:100px;width:100px;height:100px">A</div>
+	<div id="box2" style="position:absolute;left:300px;top:500px;width:100px;height:100px">B</div>
+</body>
+</html>

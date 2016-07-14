@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>배열이용갤러리</title>
+	<style>
+	#wrapper{
+		width:500px;
+		height:500px;
+		border: 2px solid	red;
+		margin:auto;
+	}
+	#controller{
+		width:100%;
+		height:100px;
+		background:#ff6666;
+		text-align:center;
+	}
+	#controller img{
+		width:70px;
+	}
+	#bt_next{
+		transform:rotate(180deg);
+	}
+
+	</style>
+	<script>
+
+	//배열 선언!!
+	var photo = new Array();
+	photo[0]="자전거1.jpg";
+	photo[1]="자전거2.jpg";
+	photo[2]="자전거3.jpg";
+	photo[3]="자전거4.jpg";
+	photo[4]="자전거5.jpg";
+	photo[5]="자전거6.jpg";
+	photo[6]="자전거7.jpg";
+	photo[7]="자전거8.jpg";
+	photo[8]="자전거9.jpg";
+	photo[9]="자전거10.jpg";
+
+	var i =0;
+	console.log(i);
+	function pre(){
+		if(i>=1)
+		{
+			i--;
+			document.getElementById("big").src="../images/"+photo[i];
+			console.log(i);
+		}else{
+			console.log("끝");
+		}
+	}
+
+	function next(){
+		if(i<photo.length-1)
+		{
+			i++;
+			document.getElementById("big").src="../images/"+photo[i];
+			console.log(i);
+		}else{
+			console.log("끝");
+		}
+	}
+
+
+	</script>
+
+</head>
+<body>
+	<div id = "wrapper">
+		<img src="../images/자전거1.jpg" width="100%" height="100%" id="big">
+		<div id="controller">
+			<img src="../images/이전버튼.png" id="bt_next" onClick="pre()">
+			<img src="../images/이전버튼.png" id="bt_prev" onClick="next()">
+		</div>
+	</div>
+</body>
+</html>

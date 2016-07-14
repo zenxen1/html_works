@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Date내장객체</title>
+	<script>
+	//현재 시간을 출력하기
+	var d = new Date();
+	document.write(d+"<br>");
+	//현재의 년도를 출력하기
+	document.write(d.getFullYear()+"<br>");
+	//현재의 월을 출력하기
+	document.write(d.getMonth()+"<br>");
+	//현재의 일을 출력하기
+	document.write(d.getDate()+"<br>");
+
+	//임의의 날짜에 대해서 원하는 정보 추출하기!!
+	var d2 = new Date("2018-7-16"); //원하는 날짜 포맷을 지정할 수 있다.
+	document.write(d2.getday());
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

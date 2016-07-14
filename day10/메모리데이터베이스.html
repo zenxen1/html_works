@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>메모리 데이터베이스</title>
+
+<style>
+	#ffind{
+		width:650px;
+		height:100px;
+		background:#99cc66;
+		
+		
+	}
+	#leftSide{
+		width:150px;
+		height:300px;
+		background:#99ff99;
+		float:left;
+	}
+	#rightSide{
+		width:500px;
+		height:300px;
+		background:#00ff99;
+		float:left;
+	}
+	#ssum{
+		width:650px;
+		height:100px;
+		background:#00cc99;
+		
+		
+	}
+</style>
+<script>
+var bt;
+var m_id;
+var pw;
+var m_name;
+var m_money;
+var table;
+var ssum=0;
+
+
+//여러명의 회원을 담을 배열!!
+var memberList=new Array(); // 정해져 있으면 안됨
+//문서가 로드되면...
+var count=0;
+
+
+	window.addEventListener("load",function(){
+		getTitle();
+		init();
+		serch();
+	});
+
+	function init(){
+		bt=document.getElementById("bt");
+		m_id=document.getElementById("m_id");
+		pw=document.getElementById("pw");
+		m_name=document.getElementById("m_name");
+		m_money=document.getElementById("m_money");
+
+
+
+		bt.addEventListener("click",function(){
+			
+			//아이디를 입력하지 않으면..욕
+			
+			if(m_id.value==""){
+				alert("아이디 입력하세요");
+				m_id.focus();//커서 올려놓기!!
+				return;
+			}
+			//패스워드를 입력하지 않은면 ..욕
+			else if(!pw.value){
+				alert("패스워드 입력하세요");
+				pw.focus();//커서 올려놓기!!
+				return;
+			}
+			else if(!m_name.value){
+				alert("이름을 입력하세요");
+				pw.focus();//커서 올려놓기!!
+				return;
+			}
+			else if(!m_money.value){
+				alert("금액을 입력하세요");
+				pw.focus();//커서 올려놓기!!
+				return;
+			}
+			
+				//제대로 넣은 경우엔 등록 절차 수행!!
+				//지금 등록하려는 사람의 아이디와 패스워드를 일차원 배열에 보관해 놓자!!
+			var member = [m_id.value, pw.value,m_name.value,m_money.value];
+				
+			//개발자가 직접 카운트를 세서 넣는 방법 
+				memberList[count]=member;
+				count++;
+				//
+			//memberList.push(member);
+				
+			//alert(memberList.length + "가입을 축하드립니다");
+			
+			getList();
+
+		});
+	
+	}
+	
+	//제목을 처리하는 함수 정의!!
+	function getTitle(){
+		table = document.createElement("table");
+		table.style.width = 450 +"px";
+		table.style.border = "1px";
+
+		//tr을 생성 및 추가하자!! (2차원 배열의 크기만큼)
+	
+		var tr=document.createElement("tr");
+		
+		var no_td=document.createElement("td"); //no용
+		no_td.innerText = "번호";
+		
+		var id_td=document.createElement("td"); //no용
+		id_td.innerText = "ID";
+		
+		var pw_td=document.createElement("td"); //no용
+		pw_td.innerText = "패스워드";
+
+		var name_td=document.createElement("td"); //no용
+		name_td.innerText = "이름";
+
+		var money_td=document.createElement("td"); //no용
+		money_td.innerText = "금액";
+
+		//생선된 컬럼 td들을 tr에 추가한다.!
+		tr.appendChild(no_td);
+		tr.appendChild(id_td);
+		tr.appendChild(pw_td);
+		tr.appendChild(name_td);
+		tr.appendChild(money_td);
+
+		//생성된 tr을 테이블에 추가
+		table.appendChild(tr);
+
+		rightSide.appendChild(table);
+		
+	
+	}
+	//appendChile의 특징상 테이블에 기존값이 누적되므로 리스트를
+	//보여주기 전에 table의 자식요소들을 싹 ~~ 지운다.
+	function initTable(){
+		table.innerHTML="";
+		getTitle();
+		ssum=0;
+	
+	
+	}
+
+
+	//등록된 회원 명단을 테이블로 출력하기!!!
+	function getList(){
+		initTable();
+
+		
+		
+
+		var len=memberList.length;
+		var num=len;
+		//이후 tr부터는 실제 등록된 데이터가 출력되어야 한다!!
+		for(var i=len-1;i>=0;i--){
+			var record_tr=document.createElement("tr");
+			var td0=document.createElement("td");
+			var td1=document.createElement("td");
+			var td2=document.createElement("td");
+			var td3=document.createElement("td");
+			var td4=document.createElement("td");
+			
+			td0.innerText=num--;
+			td1.innerText=memberList[i][0]; //id정보 넣기 
+			td2.innerText=memberList[i][1];
+			td3.innerText=memberList[i][2];
+			td4.innerText=memberList[i][3];//pw정보 넣기
+		
+			
+			//생선된 td들을 tr에 추가하자!!
+			record_tr.appendChild(td0);
+			record_tr.appendChild(td1);
+			record_tr.appendChild(td2);
+			record_tr.appendChild(td3);
+			record_tr.appendChild(td4);
+			
+			table.appendChild(record_tr);
+
+
+			//금액을 더해봅시다
+			ssum = ssum + parseInt(memberList[i][3]);
+			document.getElementById("ssum").innerText = "합계"+ssum;
+			
+		}
+
+	}
+	function serch(){
+		//검색을 해보자
+
+		var fb = document.getElementById("fb");
+		var fbtext = document.getElementById("fbtext");
+		var sel = document.getElementById("sel");
+		fb.addEventListener("click",function(){
+			
+			var len=memberList.length;
+			var num=len;
+			
+					
+			initTable();
+			for(var i=len-1;i>=0;i--){
+				if( fbtext.value == memberList[i][sel.value] ){
+					
+				
+					var record_tr=document.createElement("tr");
+					var td0=document.createElement("td");
+					var td1=document.createElement("td");
+					var td2=document.createElement("td");
+					var td3=document.createElement("td");
+					var td4=document.createElement("td");
+					
+					td0.innerText=num--;
+					td1.innerText=memberList[i][0]; //id정보 넣기 
+					td2.innerText=memberList[i][1];
+					td3.innerText=memberList[i][2];
+					td4.innerText=memberList[i][3];//pw정보 넣기
+				
+					
+					//생선된 td들을 tr에 추가하자!!
+					record_tr.appendChild(td0);
+					record_tr.appendChild(td1);
+					record_tr.appendChild(td2);
+					record_tr.appendChild(td3);
+					record_tr.appendChild(td4);
+					
+					table.appendChild(record_tr);
+				
+				}
+
+			}
+			
+		
+		});
+	}
+
+</script>
+</head>
+<body><div id="wrapper" style="width:655px; height:400px">
+		<div id="ffind">검색
+			<select id="sel">
+				<option value="0"> ID </option>
+				<option value="1"> 패스워드 </option>
+				<option value="2"> 이름 </option>
+			</select>
+			<input type="text" size="12" maxlength="12" id="fbtext">
+			<input type="button" value="검색" id="fb">
+		</div>
+		<div id="leftSide">
+			ID:<input type="text" size="7" maxlength="12" id="m_id"><br>
+			PW:<input type="password" size="7" maxlength="8" id="pw"><br>
+			이름:<input type="text" size="7" maxlength="8" id="m_name"><br>
+			돈:<input type="text" size="7" maxlength="8" id="m_money"><br>
+			<input type="button" value="등록" id="bt">
+		</div>
+		<div id="rightSide"></div>
+		
+	</div>
+	<div id="ssum"></div>
+
+</body>
+</html>

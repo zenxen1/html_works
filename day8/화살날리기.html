@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>화살날리기</title>
+	<style>
+	#wrapper{
+		width:100%px;
+		height:800px;
+		background:yellow;
+	}
+	</style>
+	<script>
+	//문서가 로드되면, span을 생성하여, 그사이에 특수문자 화살표 넣고, 날리세요!!
+	var wrapper;
+
+	var Arrow=function(){
+		
+		this.span;
+		this.x=100;
+		
+		this.init=function(){
+			wrapper = document.getElementById("wrapper");
+			this.span = document.createElement("span");
+			this.span.innerText="▶";
+			this.span.style.fontSize="50pt"
+			this.span.style.position="relative";
+			this.span.style.left=100+"px";
+			this.span.style.top=200+"px";
+
+
+			
+			//div에 부착
+			wrapper.appendChild(this.span);
+			this.move();
+		}
+
+		this.move=function(){	
+			var me=this;
+			this.x+=10;
+			this.span.style.left=this.x+"px";
+			
+			setTimeout(function(){me.move();},50)
+		}
+	}
+
+//위에서 정의한 화살 거푸짚으로부터 원하는 화살 갯수를 뽑아내서 날리자
+
+function test(){
+	
+		var a1 = new Arrow();
+		a1.init(); //a1이 보유한 함수를 호출!!
+	
+}
+
+
+	</script>
+</head>
+<body onLoad = "test()">
+	<div id = "wrapper"></div>
+</body>
+</html>

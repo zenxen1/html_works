@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>달력만들기</title>
+	<style>
+	#warpper{
+		width:724px;
+		height: 800px;
+		border: 1px solid red;
+		margin:auto;
+	}
+	#id{
+		width:100%;
+		height:40px;
+		background:#ffcc33;
+	}
+	#dayTiltle{
+		width:100%;
+		height:30px;
+		background:"ffcc66;
+	}
+	
+	ul{
+		list-style : none;
+		width:100%;
+
+	}
+	ul li{
+		float:left;
+		width:100px;
+	}
+	</style>
+	<script src="../lib/DateBox.js"></script>
+	<script>
+	var down;
+
+	window.addEventListener("load",function(){
+	//총 42개의 날짜박스를 생성한다
+	
+		
+		init();
+		date();
+	});
+
+	function init(){
+		down=document.getElementById("down");
+		for(var i=0;i<42;i++){
+			var datebox = new DateBox(down,100,100,i)
+			datebox.init();
+		}
+	}
+
+	function date(){
+		var yy = document.getElementById("sel_yy");
+		var op = document.createElement("option");
+		for(var i=1999;i<=2050;i++){
+			op.text = i;
+			yy.add(op);
+		}
+
+	}
+	</script>
+</head>
+<body>
+	<div id="warpper">
+		<div id="up"></div>
+			<select id="sel_yy"></select>년도
+			<select id="sel_mm"></select>월
+			<select id="sel_dd"></select>일
+			<input type="button" value="검색">
+		<div id="dayTitle"></div>
+			<ul>
+				<li>일</li>
+				<li>월</li>
+				<li>화</li>
+				<li>수</li>
+				<li>목</li>
+				<li>금</li>
+				<li>토</li>
+			</ul>
+		<div id="down"></div>
+	</div>
+</body>
+</html>

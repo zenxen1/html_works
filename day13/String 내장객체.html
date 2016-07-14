@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>String 내장객체</title>
+	<script>
+	/*자바스크립트 자체적으로 이미 내장된 객체가 몇개 있는데 구중 String 객체를 학습한다.
+		주의) 모든 객체가 생성시 new를 요구하는 것은 아니다. ....
+		명시적(explicit), 암시적(implicit)
+	*/
+	var a="대한민국";//암시적,묵시적 생성법
+	var str="지난... 여름에 찍은 사진.jpg";
+	var b="test.png";
+	//문자열의 길이를 출력하시오
+	document.write("문자열의 길이는" + a.length+"<br>");
+	document.write("2번째 문자는" + a.charAt(1)+"<br>");
+	document.write("2번째 문자는" + a.charCodeAt(1)+"<br>");
+	for(var i=0;i<a.length;i++){
+		document.write(a.charAt(i)+"<br>");
+	}
+	//원하는 문자의 인덱스를 축출하시오
+	document.write(a.indexOf("국")+"<br>");
+	//가장 마지막으로 발견된 문자의 index 추출
+	document.write(a.lastIndexOf("국")+"<br>");
+	//글자를 변환시켜보자
+	document.write(a.replace("국","대")+"<br>");
+
+	document.write(str.substring(6,8)+"<br>");
+	document.write(str.substring(str.lastIndexOf(".")+1,str.length)+"<br>");
+	//test.png 를 대상으로 파일명과 확장자를 각각 별도로 출력하시오.
+	var arr=b.split(".");
+	document.write(arr[0]+"<br>");
+	document.write(arr[1]+"<br>");
+
+	//test.png를 전부 대문자로 변환하여 출력하시오.
+	document.write(b.toUpperCase()+"<br>");
+	
+	//대부분의 객체지향언어에서는 일단 한번 메모리에 올라온 스트링 객체는 변경이 불가능하다 (immutable)
+	var c="    king";
+	document.write(c.length+"<br>");
+	var s2=c.trim();//공백이 제거된 @새로운@ 문자열을 반환!!
+	document.write(s2.length+"<br>");
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

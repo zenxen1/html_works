@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>갤러그</title>
+	<style>
+	body{margin:0px;}
+	#stage{
+		width:1000px;
+		height:800px;
+		background-Image:url("../images/gallerxy/bg.png");
+		
+	}
+	</style>
+	<script src="../lib/Ship.js"></script>
+	<script>
+	var stage;
+	var bgY=0;
+	var hero;
+
+	window.addEventListener("load",function(){
+		stage=document.getElementById("stage");
+
+		bgEffect();
+
+		//주인공 등장
+		hero = new Hero(stage,50,50,500-25,730);
+		hero.init();
+	
+	
+	});
+	//키보드 입력 처리
+	window.addEventListener("keydown",function(){
+		var key=event.keyCode; 
+		
+		switch(key){//소괄호에 조건 판단 대상이 되는 테이터!!
+			case 37:hero.velX= -2;break;
+			case 39:hero.velX= +2;break;
+			case 32:alert("발사");break;
+		}
+
+
+		/*
+		if(key==37){
+			//좌측이동
+			alert("왼쪽");
+
+		}else if(key==39){
+			//우측이동
+			alert("오른쪽");
+		}else if(key==32){
+			//총알 발사
+			alert("발사");
+		}
+		*/
+	});
+	
+	window.addEventListener("keyup",function(){
+		hero.velX = 0;
+	});
+
+
+	//배경 이미지 흘러가기 효과!!
+	function bgEffect(){
+		
+		bgY+=2;
+		stage.style.backgroundPosition="0px "+bgY+"px";
+
+
+		setTimeout("bgEffect()",10);
+	}
+	</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

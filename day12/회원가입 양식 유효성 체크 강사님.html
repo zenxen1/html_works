@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>회원가입 양식 유효성 체크</title>
+<script>
+window.addEventListener("load", function(){
+	init();
+});
+
+function init(){
+	//태양계.지구.아시아.대한민국.경기도.의왕시.내손동.내손중앙로.11..
+	form1.mid.focus();	
+
+	getBirth();
+	getMail();
+}
+
+function regist(){
+	//유효성 체크!!
+	if(form1.mid.value==""){
+		alert("아이디를 입력하세요");
+		form1.mid.focus();
+		return;
+	}else if(form1.pwd.value==""){//패스워드에 대한 유효성체크 
+		alert("비밀번호를 입력하세요");
+		form1.pwd.focus();
+		return;
+	}else if(form1.pwd.value !=form1.pwd2.value){
+		//두개의 패스워드가 서로 틀리면 욕!!
+		alert("패스워드가 일치하지 않습니다");
+		form1.pwd2.value="";
+		form1.pwd2.focus();
+		return;
+	}
+
+	form1.action="http://daum.net";//전송 url 기재!!
+	form1.submit();	
+}
+
+//생년월일 초기화 
+function getBirth(){
+	//년도 채우기!!
+	for(var i=2000; i>=1930; i--){
+		//option 생성!!
+		var op=document.createElement("option");
+		op.text=i;
+
+		//select 에 추가하기!!
+		form1.yy.add(op);
+	}
+	
+	for(var i=1; i<=12; i++){
+		var op=document.createElement("option");
+		op.text=i;
+		form1.mm.add(op);
+	}
+
+	for(var i=1; i<=31; i++){
+		var op=document.createElement("option");
+		op.text=i;
+		form1.dd.add(op);
+	}
+}
+
+function getMail(){
+	var mailArr=["다음","네이버","구글","네이트"];
+	
+	for(var i=0;i<mailArr.length;i++){
+		var op=document.createElement("option");
+		op.text=mailArr[i];
+		form1.mail_server.add(op);
+	}
+}
+</script>
+</head>
+<body>
+<form name="form1">
+<table width="600px" border="1px" align="center">
+	<tr>
+		<td>아이디</td>
+		<td>
+			<input type="text" name="mid">
+		</td>
+	</tr>
+	<tr>
+		<td>패스워드</td>
+		<td><input type="password" name="pwd"></td>
+	</tr>
+	<tr>
+		<td>패스워드 확인</td>
+		<td><input type="password" name="pwd2"></td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td><input type="text" name="mname"></td>
+	</tr>
+	<tr>
+		<td>주민번호</td>
+		<td>
+			<input type="text" name="jumin1">
+			-
+			<input type="text" name="jumin2">
+		</td>
+	</tr>
+	<tr>
+		<td>성별</td>
+		<td>
+			<input type="radio" name="gender">남
+			<input type="radio" name="gender">여
+		</td>
+	</tr>
+
+	<tr>
+		<td>생년월일</td>
+		<td>
+			<select name="yy"></select>년
+			<select name="mm"></select>월
+			<select name="dd"></select>일
+		</td>
+	</tr>
+	<tr>
+		<td>우편번호</td>
+		<td>
+			<input type="text" name="zipcode1" readonly>
+			-
+			<input type="text" name="zipcode2" readonly>
+			<input type="button" value="우편번호검색">
+		</td>
+	</tr>
+	<tr>
+		<td>주소</td>
+		<td>
+			<input type="text" name="addr1"><br>
+			<input type="text" name="addr2">
+		</td>
+	</tr>
+	<tr>
+		<td>이메일</td>
+		<td>
+			<input type="text" name="mail_id">
+			@
+			<select name="mail_server"></select>
+		</td>
+	</tr>
+	<tr>
+		<td>연락처</td>
+		<td>
+			<select name="tel1"></select>
+			-<input type="text"  name="tel2">
+			-<input type="text" name="tel3">
+		</td>
+	</tr>
+	<tr>
+		<td>취미</td>
+		<td>
+			* 반드시 2개이상은 선택하셔야 합니다.<br>
+			여행<input type="checkbox">
+			게임<input type="checkbox">
+			영화<input type="checkbox">
+			스포츠<input type="checkbox">
+			요리<input type="checkbox">
+		</td>
+	</tr>
+	<tr>
+		<td>남길 메세지</td>
+		<td>
+			<textarea name="msg" rows="5" cols="50"></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="button" value="회원가입" onClick="regist()">
+			<input type="button" value="다시작성">
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

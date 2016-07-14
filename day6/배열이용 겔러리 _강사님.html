@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>배열이용 겔러리</title>
+<style>
+#wrapper{
+	width:500px;
+	height:550px;
+	margin:auto;
+}
+#controller{
+	width:100%;
+	text-align:center;
+}
+</style>
+<script>
+//배열 선언!!
+var photo = new Array(); 
+
+photo[0]="black.jpg";
+photo[1]="blue.jpg";
+photo[2]="front.jpg";
+photo[3]="girl.jpg";
+photo[4]="king.jpg";
+photo[5]="long.jpg";
+photo[6]="rear.jpg";
+photo[7]="red.jpg";
+photo[8]="side.jpg";
+photo[9]="red_side.jpg";
+
+var count=0;
+
+function prev(){
+	var big=document.getElementById("big");
+
+	if(count< photo.length-1){
+		count--;
+		big.src="../images/"+photo[count];
+	}else{
+		alert("이전 사진이 없습니다.");
+	}
+}
+
+function next(){
+	var big=document.getElementById("big");
+	
+	if(count >= 1){
+		count++;
+		big.src="../images/"+photo[count];		
+	}else{
+		alert("다음 사진이 없습니다.");		
+	}
+}
+</script>
+</head>
+<body>
+<div id="wrapper">
+	<img src="../images/black.jpg" width="500px" id="big">
+	<div id="controller">
+		<input type="button" value="이전사진" onClick="prev()">
+		<input type="button" value="다음사진" onClick="next()">
+	</div>
+</div>
+</body>
+</html>

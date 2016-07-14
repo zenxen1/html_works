@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>전사애니메이션</title>
+</head>
+<script>
+//문서내의 pic이라는 이미지의 src를 바꾸자!!
+var x=1;
+
+function next(){
+	//x가 19이상이 되면 다시 1로 전환!!
+	x++;
+	//x = (x>=19) ? 1 : x;
+	
+	if(x>=19){
+		x=1
+	}else{
+		x=x;
+	}
+
+	console.log(x);
+	document.getElementById("pic").src="../images/warior/image"+x+".png"
+    
+
+	//컴퓨터 스스로 이 함수를 호출하게 하자!!
+	//1/1000초까지 표현이 가능하다
+	setTimeout("next()", 10);
+}
+
+	
+</script>
+
+<body>
+<input type="button" value="펄럭이기" onclick="next()">
+<br>
+<img src="../images/warior/image1.png" id="pic">
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ChatA</title>
+	<link rel="stylesheet" type="text/css" href="/css/chat.css" />
+	<style>	</style>
+	<script>
+
+	function enter(obj){
+		var key=event.keyCode;
+		var area = document.getElementById("area");
+
+		if(key==13){
+			opener.chatB.area.value += obj.value+"\n";
+			area.value += obj.value+"\n";
+			obj.value="";
+			
+
+		}
+	}
+
+	
+	</script>
+</head>
+<body>
+<div id="wrapper">
+	<textarea id="area"></textarea>
+	<input type="text" onkeyUP="enter(this)">
+</div>
+
+</body>
+</html>

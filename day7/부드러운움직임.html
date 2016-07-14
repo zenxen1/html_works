@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>부드러운움직임</title>
+	<style>
+
+	#pica{
+		position:absolute;
+		left:0px;
+		top:200px;
+	}
+
+	</style>
+	<script>
+	var pica;
+	var tagetX=700;
+
+	function init(){
+		pica=document.getElementById("pica");	
+	}
+
+	//목표지점 - 비율계수*(목표지점 - 나의 위치);
+	var a=0.9;
+	
+	function move(){
+		//alert(parseInt(pica.style.left));
+		pica.style.left=(tagetX-a*(tagetX-parseInt(pica.style.left))) + "px";
+		setTimeout("move()",10);
+	
+	}
+
+
+	</script>
+</head>
+<body onLoad="init()">
+	<img src="../images/마리오.png" id="pica" onMouseOver="move()" style="position:absolute;left:0px;top:200px;">
+
+</body>
+</html>

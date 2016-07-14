@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>총알발사하기</title>
+	<style>
+	body{margin:0px;}
+	#stage{
+		width:100%px;
+		height:800px;
+		background:yellow;
+	}
+	</style>
+	<script src="../lib/Bullet.js"></script>
+	<script>
+	var stage;
+	
+	function init(){
+		stage=document.getElementById("stage");
+		
+		//프로그래밍에서 이벤트 핸들러를 적용할때...
+		window.addEventListener("keydown", function(){
+			//alert(event.keyCode + "키보드쳤어");
+			if(event.keyCode == 32){
+				var b = new Bullet(stage,500);
+				b.init();
+			}
+
+		});
+	/*
+		for(var i=0;i<1000;i++){
+			//거푸집에서 총알 한개를 생성!!
+			
+			var b = new Bullet(i*50);
+			b.init();
+		}
+		*/
+	}
+	
+
+	
+	
+	
+	/*아래의 코드는 지금 당장 사용할 총알 자체가 아닌, 장차 총알을 생성해낼 틀이다!!!*/
+	
+
+	
+	
+
+	</script>
+</head>
+<body onLoad = "init()" >
+	<div id="stage"></div>
+</body>
+</html>

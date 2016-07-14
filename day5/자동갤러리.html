@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>자동갤러리</title>
+<style>
+#wrapper{
+	width:600px;
+	height:650px;
+	/*background: yellow; */
+	margin:auto;
+}
+#controller{
+	width:100%;
+	height:50px;
+	background:#ff6699;
+
+	/*div 안쪽의 내용물에 대한 중앙정렬*/
+	text-align:center;
+}
+/*한칸 띄우면, 안쪽의 하위 요소를 의미*/
+
+#controller img{
+	width:70px;
+}
+#bt_prev{
+	transform:rotate(180deg);
+}
+
+</style>
+<script>
+var a=1;
+
+function next(){
+	a++;
+	if(a==11){
+		a=1;
+	}
+	console.log(a);
+	document.getElementById("big").src="../images/"+a+".jpg";
+		
+}
+function pre(){
+	a--;
+	if(a==0){
+		a=10;
+	}
+	console.log(a);
+	document.getElementById("big").src="../images/"+a+".jpg";
+		
+}
+
+//자동이란 단지, 우리가 정의해놓은 함수를 인간이 안닌 시스템이 대신 호출해 주는 것 뿐이다!!
+function auto(){
+	//자동호출부탁!!!
+	setInterval("next()",1000);
+}
+
+</script>
+</head>
+<body>
+	<div id="wrapper">
+		<img src="../images/1.jpg" width="100%" height="100%" id="big">
+		<div id="controller">
+			<img src="../images/bt.png" id="bt_prev" onClick="pre()">
+			<img src="../images/auto.png" id="bt_auto" onClick="auto()">
+			<img src="../images/bt.png" id="bt_next" onClick="next()">
+		
+		</div>
+	</div>
+</body>
+</html>

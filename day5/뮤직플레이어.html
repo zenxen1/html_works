@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>뮤직플레이어</title>
+	<style>
+	#monitor{
+		background:yellow;
+		width:500px;
+		height:100px;
+		border:3px solid green;
+		font-size:30pt;
+		color:red;
+		font-weight:bold;
+	}
+	</style>
+	<script>
+	var isPlaying=false; //플레이 시킬지, 멈출지 여부를 결정하는 논리값
+	var count=1; // 어떤 파일을 실행 할지 그 이름을 담게될 변수!!
+	//문서내의 music 이라는 요소를 플레이 하자!!
+	function play(){
+		if(!isPlaying){
+			document.getElementById("music").loop=document.getElementById("ch").checked; // 체크박스의 상태에 따라 loop 여부를 결정
+			document.getElementById("music").load();
+			document.getElementById("music").play();
+			document.getElementById("music_name").innerText="1.mp3";
+			document.getElementById("bt_play").value="||";
+		}else{
+			document.getElementById("music").pause();
+			document.getElementById("bt_play").value="▶";
+		}
+		isPlaying=!isPlaying;
+		
+	}
+	function stop(){
+		//다시 음악을 준비시켜라
+		document.getElementById("music").load();
+		document.getElementById("bt_play").value="▶";
+	}
+	function next(){
+		count++;
+		document.getElementById("dest").src="../music/"+count+".mp3"
+		//변경된 음악을 메모리에 로딩할 시간을 줘야 한다.
+		document.getElementById("music").load();
+
+		//그리고 나서 플레이가 됨...
+		document.getElementById("music").play();
+		if(count == 6){
+			count=1;
+		}
+		
+
+	}
+	function pre(){
+		count--;
+		document.getElementById("dest").src="../music/"+count+".mp3"
+		document.getElementById("music").load();
+		document.getElementById("music").play();
+	
+	}
+
+
+	</script>
+
+</head>
+<body>
+<audio id="music">
+	<source id="dest" src="../music/1.mp3" type="audio/mpeg">
+</audio>
+
+
+<div id="monitor">
+<marquee id="music_name">재생버튼을 누르세요...</marquee>
+</div>
+<input type="button" value="◀◀" onclick="pre()">
+<input type="button" value="■" onclick="stop()">
+<input type="button" value="▶" onClick="play()" id="bt_play">
+<input type="button" value="▶▶"onClick="next()">
+Repeat:<input type="checkbox" id="ch">
+
+</body>
+</html>

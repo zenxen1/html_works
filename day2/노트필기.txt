@@ -1,0 +1,8 @@
+1. 프로그램이란?
+   컴퓨터를 동작시키기 위한 명령어 집합...
+            기억,연산
+
+IQ, 기억력, 노트
+CPU, 메모리, HD
+
+sqlldr userid=java/java control='post.ctl' data='zipcode.csv'

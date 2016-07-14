@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>갤러그</title>
+	<style>
+	body{margin:0px;}
+	#stage{
+		width:600px;
+		height:600px;
+		background-Image:url("../images/gallerxy/intro.jpg");
+		font-size:40pt;
+		color:yellow;
+		text-align:center;
+	}
+	</style>
+	<script>
+
+	var stage;
+	var flag=false;
+
+	window.addEventListener("load",function(){
+		stage=document.getElementById("stage");
+		
+		stage.addEventListener("click",function(){
+			//자바 스크립터를 이용한 링크
+			location.href="갤러그.html";
+		
+		});
+
+	blink();
+	});
+
+	function blink(){
+		
+		if(flag=!flag){
+			stage.innerText = "INSERT COIN";
+		}else{
+			stage.innerText = "";
+		}
+		setTimeout("blink()",600);
+	}
+	</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

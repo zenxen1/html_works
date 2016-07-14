@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스탑워치</title>
+<style>
+#h_txt{
+	width:100px;
+	height:50px;
+	font-size:40pt;
+	font-weight:bold;
+	color:red;
+	background:yellow;
+	text-align:right; /*내용물에 대한 우측 정렬*/
+}
+#m_txt{
+	width:100px;
+	height:50px;
+	font-size:40pt;
+	font-weight:bold;
+	color:red;
+	background:yellow;
+	text-align:right; /*내용물에 대한 우측 정렬*/
+}
+#s_txt{
+	width:100px;
+	height:50px;
+	font-size:40pt;
+	font-weight:bold;
+	color:red;
+	background:yellow;
+	text-align:right; /*내용물에 대한 우측 정렬*/
+}
+
+</style>
+<script>
+var ss=0;//초를 담는 전역 변수!! 왜 전역인가?? 누적되야하므로..
+var mm=0;
+var hh=0;
+
+//문서가 모두 읽혀졌으므로, 아래의 txt 요소를 접근할 수 있는 시점
+function init(){
+	document.getElementById("h_txt").value=0;
+	document.getElementById("m_txt").value=0;
+	document.getElementById("s_txt").value=0;
+}
+
+//txt의 기존값을 증가값으로 대입
+var st;
+function start(){
+	ss++;
+	if(ss==60){
+		ss=0;
+		mm++;
+		document.getElementById("m_txt").value=mm;
+		if(mm==60){
+			mm=0;
+			hh++;
+			document.getElementById("h_txt").value=hh;
+		}
+	}
+	console.log(ss);
+	document.getElementById("s_txt").value=ss;
+	st = setTimeout("start()",1000);
+	//버튼을 못누르게 활성화 하기
+	document.getElementById("bt_start").disabled=true;
+}
+
+function stop(){
+	clearTimeout(st); //기존 셋타임 아웃에 의한 자동호출을 중지!!	
+	document.getElementById("bt_start").disabled=false;
+}
+
+
+
+
+</script>
+
+
+
+</head>
+<body onLoad="init()">
+	<input type="text" id="h_txt">
+	<input type="text" id="m_txt">
+	<input type="text" id="s_txt">
+	<input type="button" value="시작" id="bt_start" onClick="start()" >
+	<input type="button" value="정지" id="bt_stop" onClick="stop()">
+
+</body>
+</html>

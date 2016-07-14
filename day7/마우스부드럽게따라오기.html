@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>마우스부드럽게따라오기</title>
+	<style>
+
+	#wrapper{
+		width:1080px;
+		height:760px;
+		border:2px solid red;
+		background:yellow;
+	}
+	#pica{
+		position:absolute;
+		left:0px;
+		top:200px;
+	}
+
+	</style>
+	<script>
+	var pica;
+	var tagetX;
+	var tagetY;
+
+	function init(){
+		pica=document.getElementById("pica");	
+	}
+
+	//목표지점 - 비율계수*(목표지점 - 나의 위치);
+	var a=0.9;
+	
+	function move(){
+		tagetX=event.clientX;
+		tagetY=event.clientY;
+		console.log(tagetX);
+		console.log(tagetY);
+		
+
+
+		//alert(parseInt(pica.style.left));
+		pica.style.left=(tagetX-a*(tagetX-parseInt(pica.style.left))) + "px";
+		pica.style.top=(tagetY-a*(tagetY-parseInt(pica.style.top))) + "px";
+		
+		setTimeout("move()",10);
+	
+	}
+
+
+	</script>
+</head>
+<body onLoad="init()">
+	<div id="wrapper" onMouseDown="move()">
+		<img src="../images/마리오.png" id="pica" style="position:absolute;left:0px;top:200px;">
+	</div>
+</body>
+</html>

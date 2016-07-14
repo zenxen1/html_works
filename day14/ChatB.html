@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ChatB</title>
+	<link rel="stylesheet" type="text/css" href="/css/chat.css" />
+	<style>	</style>
+	<script>
+	var area;
+	function init(){
+		area = document.getElementById("area");
+	}
+	function enter(obj){
+		opener.chatA.area.value += obj.value+"\n";
+		area.value += obj.value+"\n";
+		obj.value="";
+	}
+	</script>
+</head>
+<body onLoad="init()">
+<div id="wrapper">
+	<textarea id="area"></textarea>
+	<input type="text" onKeyUp="enter(this)">
+</div>
+
+</body>
+</html>

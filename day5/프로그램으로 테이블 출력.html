@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>프로그램으로 테이블 출력</title>
+	 <script>
+	var f = prompt("층수를 입력하세요");
+	var h = prompt("호수를 입력하세요");
+	var b = prompt("건물 두께를 입력하세요");
+	var wid = prompt("건물의 가로폭을 입력하세요");
+
+
+	document.write("<table width=\""+wid+"px\" border=\""+b+"px\">");
+	for(var j=1;j<=f;j++){
+		document.write("<tr>");
+			for(var i=1;i<=h;i++){
+				document.write("<td width=\"100px\">"+((j*100)+i)+"호</td>");
+			}
+		document.write("</tr>");
+	}
+	document.write("</table>");
+	</script>
+
+
+
+</head>
+<body>
+
+</body>
+</html>

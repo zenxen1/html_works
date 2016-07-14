@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>횡스크롤 게임</title>
+	<style>
+	body{margin:0px;}
+	#stage{
+		width:100%;
+		height:800px;
+		background-Image:url("../images/배경화면.png");
+	
+	}
+	</style>
+	<script src="../lib/lib.js"></script>
+	<script src="../lib/Hero.js"></script>
+	<script src="../lib/Bullet.js"></script>
+	<script src="../lib/Unit.js"></script>
+	<script>
+	var stage;
+	var bgX=0;
+	var hero;
+	var enemyArray = new Array();
+
+	window.addEventListener("load",function(){
+		init();
+
+		
+	});
+
+	function init(){
+		//alert("당신 모니터의 크기는 "+ screen.width);
+		stage=document.getElementById("stage");
+		stage.style.width = screen.width + "px";
+		//stage.style.width = screen.width + "px";  //@@@screen.width
+		stage.style.height = 800 + "px";
+		//배경 흐름 처리
+		bgEffect();
+		//우주선 등장
+		hero = new Hero(stage,50,50,100,100,"../images/우주선.gif");
+		hero.init();
+		
+		//적군등장
+		var count=0;
+		var count1=0;
+		var ss=0;
+	
+		for(var i=0; i<100;i++){
+			ss = getRandomByRange(50,80)
+		
+			if(i%10==0){
+				count++;
+				count1=0;
+			}
+			var unit = new Unit(stage,50,50,1000+(count*ss),20+(ss*count1),"../images/warior/image1.png");
+			count1++;
+			unit.init();
+			enemyArray.push(unit);
+		}
+	}
+
+	window.addEventListener("keydown",function(){
+		var key = event.keyCode;
+		
+		
+		switch(key){
+			case 32:fire();break;
+			case 37:hero.velX=-2;break;
+			case 38:hero.velY=-2;break;
+			case 39:hero.velX=2;break;
+			case 40:hero.velY=2;break;
+		}
+		
+	});
+	
+	window.addEventListener("keyup",function(){
+		//방향키를 눌렀다 뗄 경우만
+		var key=event.keyCode;
+		if(key == 37 || key == 39 ){
+			hero.velX=0;
+		}
+		if(key == 38 || key == 40 || stage.style.height<hero.y || hero.y<0){
+			hero.velY=0;
+		}
+	});
+
+	//우주선 총알 발사
+	function fire(){
+		var b= new Bullet(stage,hero.x+30,hero.y+15);
+		b.init();
+		
+	}
+
+	function bgEffect(){
+		bgX-=5;
+		stage.style.backgroundPosition=bgX+"px 0px";
+		setTimeout("bgEffect()",50);
+	}
+
+	
+	
+	</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

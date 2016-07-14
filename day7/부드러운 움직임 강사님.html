@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>부드러운 움직임</title>
+<style>
+#pica{
+	position:absolute;
+	left:0px;
+	top:200px;
+}
+</style>
+<script>
+var pica;
+var targetX; //피카추가 도달할 목표지점!!
+var targetY;
+var a=0.9;
+
+function init(){
+	pica=document.getElementById("pica");
+	pica.style.left=targetX-a*(targetX - parseInt(pica.style.left))+"px";
+	pica.style.top=targetY-a*(targetY - parseInt(pica.style.top))+"px";	
+	
+	console.log(pica.style.left);
+
+	setTimeout("init()", 10);
+}
+
+//목표지점 - 비율계수*(목표지점 - 나의위치);
+function move(){
+	targetX=event.clientX;
+	targetY=event.clientY;
+	
+}
+</script>
+</head>
+<body onLoad="init()" onMouseDown="move()">
+<div style="width:100%;height:800px;background:yellow">
+	<img src="../images/pica.jpg" id="pica" style="position:absolute;left:0px;top:200px;width:40px;">
+</div>
+</body>
+</html>

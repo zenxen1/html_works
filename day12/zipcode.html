@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>우편번호 검색</title>
+	<script>
+	function setPost(zip, add){
+		//새창에서 선택한 현재의 우편번호 텍스트를, 부모 윈도우의 우편번호 입력란에 채워넣는다.+주소도!!
+		var arr = zip.split("-");
+		
+		opener.document.form1.zipcode1.value=arr[0];
+		opener.document.form1.zipcode2.value=arr[1];
+		opener.document.form1.add1.value=add;
+		opener.document.form1.add2.focus();
+
+		window.close(); // 현재창닫기
+
+
+	}
+	</script>
+</head>
+<body>
+<table width="100%" border="1px">
+	<tr>
+		<td colspan=2 align="center">
+			<input type="text">
+			<img src="/images/serchbutton.png" width="30px">
+		</td>
+	</tr>
+	<tr>
+		<td>우편번호</td>
+		<td>주소</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#66ff99'" onMouseOut="this.style.background=''">
+		<td><a href="javascript:setPost('123-456','서울 도기구 신사동 도화빌딩')">123-456</a></td>
+		<td>서울 도기구 신사동 도화빌딩</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#66ff99'" onMouseOut="this.style.background=''">
+		<td><a href="">344-234</a></td>
+		<td>서울 용산구 신림동 별빌딩</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#66ff99'" onMouseOut="this.style.background=''">
+		<td><a href="">234-454</a></td>
+		<td>경기 평택구 동탄동 도빌딩</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#66ff99'" onMouseOut="this.style.background=''">
+		<td><a href="">237-289</a></td>
+		<td>서울 제주구 구동 화빌딩</td>
+	</tr>
+	<tr onMouseOver="this.style.background='#66ff99'" onMouseOut="this.style.background=''">
+		<td><a href="">678-394</a></td>
+		<td>서울 광주구 별동 가수빌딩</td>
+	</tr>
+</table>
+</body>
+</html>

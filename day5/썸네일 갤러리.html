@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>썸네일 갤러리</title>
+	<style>
+	div{
+		border: 2px solid red;
+		width:600px;
+		height:650px;
+		margin:auto;	
+	
+	}
+	</style>
+	<script>
+	//문서내의 큰 이미지의 src를 바꾸자!!
+	function setImg(n){
+
+		document.getElementById("big").src="../images/"+n+".jpg";
+
+	}
+
+
+	</script>
+</head>
+<body>
+<div>
+	<table width="100%">
+		<tr>
+			<td><img src="../images/1.jpg" width="50px" onMouseOver="setImg(1)"></td>
+			<td><img src="../images/2.jpg" width="50px" onMouseOver="setImg(2)"></td>
+			<td><img src="../images/3.jpg" width="50px" onMouseOver="setImg(3)"></td>
+			<td><img src="../images/4.jpg" width="50px" onMouseOver="setImg(4)"></td>
+			<td><img src="../images/5.jpg" width="50px" onMouseOver="setImg(5)"></td>
+			<td><img src="../images/6.jpg" width="50px" onMouseOver="setImg(6)"></td>
+			<td><img src="../images/7.jpg" width="50px" onMouseOver="setImg(7)"></td>
+			<td><img src="../images/8.jpg" width="50px" onMouseOver="setImg(8)"></td>
+			<td><img src="../images/9.jpg" width="50px" onMouseOver="setImg(9)"></td>
+			<td><img src="../images/10.jpg" width="50px" onMouseOver="setImg(10)"></td>
+		<tr>
+	</table>
+	<img src="../images/1.jpg" width="100%" id="big">
+</div>
+</body>
+</html>

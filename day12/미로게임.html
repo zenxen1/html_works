@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>미로게임</title>
+	<style>
+	body{margin:0px;}
+	#stage{
+		background:yellow;
+	}
+	</style>
+	<script src="../lib/Hero.js"></script>
+	<script src="../lib/Maze.js"></script>
+	<script src="../lib/lib.js"></script>
+	<script>
+	var stage;
+	var mario;
+	var maze;
+	var mazeArr = new Array();
+
+	window.addEventListener("load",function(){
+		init();
+	});
+
+	function init(){
+		stage=document.getElementById("stage");
+		stage.style.width = screen.width + "px";
+		stage.style.height = screen.height + "px";
+		stage.style.backgroundImage = "url('../images/배경화면.jpg')" 
+		
+		var countY=0;
+		var countX=0;
+		var w=20; //미로의 가로 크기
+		for(var i=0;i<2000;i++){
+			if(i%50==0){
+				countY++;
+				countX=0;
+			}
+			maze = new Maze(stage,w,w,countX*w,countY*w);
+			maze.init();
+			countX++;
+			mazeArr[i]=maze;
+		}
+
+		//주인공 등장
+		mario = new Hero(stage,w,w,100,50,"../images/마리오.png");
+		mario.init();
+
+	}
+
+	//상하좌우 이벤트 처리
+	window.addEventListener("keydown",function(){
+		var key = event.keyCode;
+		switch(key){
+			case 37: mario.velX-=1;break;
+			case 38: mario.velY-=1;break;
+			case 39: mario.velX+=1;break;
+			case 40: mario.velY+=1;break;
+		}
+		
+			for(var i=0;i<2000;i++){
+				if(mazeArr[i].flag){
+					var result = hitTest(mario.img,mazeArr[i].div);
+						console.log(result);
+					if(result){
+						
+						mario.velX = 0;
+						mario.velY = 0;
+					}
+				}
+		}
+	
+	});
+
+	window.addEventListener("keyup",function(){
+		var key = event.keyCode;
+		
+		if(key == 37 || key==39){
+			mario.velX = 0;
+		}
+		if(key == 38 || key ==40 ){
+			mario.velY = 0;
+		}
+
+	});
+
+	
+	</script>
+</head>
+<body>
+	<div id="stage"></div>
+
+</body>
+</html>

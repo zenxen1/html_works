@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>좌표따라움직이기</title>
+	<style>
+	/*
+	html 태그중에 같은 라인에는 절대로 다른 태그가 존재할 수 없도록 배척하는 특징을 갖는 태그가 
+	여러개 있다. 이러한 것을 block이라 한다.
+	*/
+	#wrapper{
+		width:1010px;
+		height:700px;
+		/*border:2px solid red;*/
+	}
+	#stage{
+		width:800px;
+		height:700px;
+		background:yellow;
+		/*border:1px solid red;*/
+		float:left; /*div를 띄운다*/
+	}
+	#info{
+		width:200px;
+		height:700px;
+		background:#ff33cc;
+		float:left;
+	}
+	#pos{
+		width:100%;
+		height:680px;
+		background:pink;
+		overflow:scroll;
+	}
+	</style>
+	<script>
+	var stage;
+	var pos;
+	//var s ="";
+	var data =new Array(); //좌표정보를 담는 일차원 배열을 담을 큰 배열
+	var count=0; // 2차원 배열 중 어느 칸에 넣어야 할지를 결정하는 변수
+	var img; //움직일 케릭터 이미지!!
+	var step =0;
+	var st;
+
+	//프로그램 실행시 초기화를 담당할 함수!!
+	function init(){
+		stage = document.getElementById("stage");
+		pos=document.getElementById("pos");		
+
+		//문서내에 마리오 이미지를 존재시키자!!
+		img = document.createElement("img");
+		img.src="../images/마리오.png";
+		img.style.width=30+"px";
+		img.style.position="absolute";
+		stage.appendChild(img);
+
+	}
+	function stemp(){
+		var span = document.createElement("span");
+		span.innerText="●";
+		span.style.position="absolute";
+		span.style.left=event.clientX+"px";
+		span.style.top=event.clientY+"px";
+		span.style.fontSize=1+"px";
+		
+		stage.appendChild(span);//div안에 자식 태그요소 추가하기!!	
+
+
+		var posX=event.clientX;
+		var posY=event.clientY;
+		
+		/*
+		var a = "[x="+posX+", y="+posY+"] <br>";
+		s = s + a;
+
+		pos.innerHTML= s;
+		*/
+	
+
+		/*
+		var post = document.createElement("post")
+		post.innerHTML="[x="+posX+", y="+posY+"] <br>";
+		
+		pos.appendChild(post);
+		*/
+		//우측의 정보 DIV에 현재 좌표를 누적시켜보자!!
+		//마우스의 좌표를 일차원 배열에 담아두자!!
+		var point = [event.clientX,event.clientY];
+		data[count]=point;
+		
+		console.log("현재 까지 담겨진 좌표의 갯수는"+data.length);
+		
+		//우측의 정보 div에 현재 좌표를 누적시켜보자!!
+		pos.innerHTML=pos.innerHTML + "[x좌표:"+data[count][0]+",y좌표:"+data[count][1]+"]<br>"
+		count++;
+	}
+	
+	/*이차원 배열에 등록된 좌표들을 하나씩 참조하면서, 마리오의 좌표와 일치시켜보자*/
+	function start(){
+		
+		if(step<data.length){
+			img.style.left=data[step][0]+"px";
+			img.style.top=data[step][1]+"px";
+		
+			step++;
+		}
+
+		var st = setTimeout("start()",200);
+	
+	}
+
+	function clean(){
+		clearTimeout(st);
+
+		//stage의 모든 점들을 제거!!!
+		pos.innerHTML="";
+		stage.innerHTML="";
+	
+	}
+
+	</script>
+</head>
+<body onLoad="init()">
+	<div id="wrapper" >
+		<div id="stage" onMouseDown="stemp()"></div>
+		<div id="info">
+			<input type="button" value="start" onClick="start()">
+			<input type="button" value="clear" onClick="clean()">
+			<div id="pos"></div>
+		</div>
+	</div>
+</body>
+</html>

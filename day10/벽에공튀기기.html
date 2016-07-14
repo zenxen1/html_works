@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>벽에공튀기기</title>
+	<style>
+	body{margin:0px;}
+	#stage{
+		
+		border:1px solid red;
+	
+	}
+	</style>
+	<script src="../lib/lib.js"></script>
+	<script>
+	var stage;
+	var stage_width=800;
+	var stage_height=800;
+	var ballImg=[
+					"../images/볼1.png",
+					"../images/볼2.png",
+					"../images/볼3.png",
+					"../images/볼4.png",
+					"../images/볼5.png",
+					"../images/볼6.png"
+					 ];
+
+
+
+	/*볼을 정의한다*/
+	
+	var Ball = function(stage,width,height,x,y,velX,velY,src,rotate){
+		/*클래스가 보유한 변수를 멤버변수라 한다*/
+		this.stage=stage;
+		this.img;
+		this.width = width;
+		this.height = height;
+		this.x=x;
+		this.y=y;
+		this.src=src;
+		this.rotate=rotate;
+		this.velX=velX; // x축으로 몇 픽셀씨 움직일지 결정
+		this.velY=velY; // x축으로 몇 픽셀씨 움직일지 결정
+
+		
+		this.init=function(){
+			this.img=document.createElement("img");
+			this.img.src=this.src;
+			this.img.style.width = this.width +"px";
+			this.img.style.height = this.height +"px";
+			this.img.style.position = "absolute";
+			this.img.style.left=this.x+"px"
+			this.img.style.top=this.y+"px"
+
+			this.stage.appendChild(this.img);
+			this.move();
+		}
+
+		this.move=function(){
+
+			var me = this;
+			
+			//회전시키기
+			this.rotate+=2;
+			this.img.style.transform="rotate("+this.rotate+"deg)";
+			
+			this.x+=this.velX; //현재 x 위치에서 velx만큶 전진
+			this.y+=this.velY;
+			
+			//우측벽으로 나가는지 판단!!
+			if(this.x>=stage_width-100){
+				console.log("적 우측벽에 도달핬였으요 "+this.x);
+				this.velX = -1*this.velX;
+                			
+			}
+			if(this.x<=0){
+				console.log("적 좌측벽에 도달핬였으요 "+this.x);
+				this.velX = -1*this.velX;
+                			
+			}
+			if(this.y>=stage_height-100 || this.y<=0){
+				console.log("적 위아래벽에 도달핬였으요 "+this.y);
+				this.velY = -1*this.velY;
+                			
+			}
+			
+			
+			
+			//이동하기
+			this.img.style.left=this.x+"px";
+			this.img.style.top=this.y+"px";
+
+
+			setTimeout(function(){
+				me.move();
+			},10);
+		
+		}
+	
+	}
+	
+	//문서를 로드되면
+	window.addEventListener("load",function(){
+		stage=document.getElementById("stage");
+
+		stage.style.width = stage_width + "px";
+		stage.style.height = stage_height + "px";
+	
+	
+	});
+
+
+	//스페이스바를 누르면...
+	window.addEventListener("keydown",function(){
+		//볼을 탄생 시키자!!
+		if(event.keyCode==32){
+			/*
+			var r= parseInt(Math.random()*9);
+			var ball = new Ball(stage,100,100,200,300,"../images/볼"+r+".png",0);
+			ball.init();
+			*/
+			var r= parseInt(Math.random()*ballImg.length);
+
+			//x의 증가량에 대한 범위 랜덤 설정
+			var rx = getRandomByRange(5,2);
+			var ry = getRandomByRange(7,1);
+			var ball = new Ball(stage,100,100,1,1,rx,ry,ballImg[r],0);
+			ball.init();
+
+		}
+	
+	});
+
+	
+	//document.write(Math.ceil(2.1));
+	//document.write(Math.floor(2.1));
+
+	</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>스탑워치</title>
+<style>
+#txt{
+	width:200px;
+	height:150px;
+	font-size:40pt;
+	font-weight:bold;
+	color:red;
+	background:yellow;
+	text-align:right; /*내용물에 대한 우측 정렬*/
+}
+
+</style>
+<script>
+var ss=0;//초를 담는 전역 변수!! 왜 전역인가?? 누적되야하므로..
+
+//문서가 모두 읽혀졌으므로, 아래의 txt 요소를 접근할 수 있는 시점
+function init(){
+	document.getElementById("txt").value=0;
+}
+
+//txt의 기존값을 증가값으로 대입
+var st;
+function start(){
+	ss++;
+	document.getElementById("txt").value=ss;
+	st = setTimeout("start()",20);
+}
+
+function stop(){
+	clearTimeout(st); //기존 셋타임 아웃에 의한 자동호출을 중지!!	
+}
+
+
+
+
+</script>
+
+
+
+</head>
+<body onLoad="init()">
+	<input type="text" id="txt">
+	<input type="button" value="시작" onClick="start()">
+	<input type="button" value="정지" onClick="stop()">
+
+</body>
+</html>

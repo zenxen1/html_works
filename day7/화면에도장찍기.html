@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>화면에도장찎기</title>
+	<style>
+	body{
+		margin:0px;
+	}
+	div{
+		background:yellow;
+		height:800px;
+	}
+	</style> 
+	<script>
+	var wrapper;
+	var w=100; //도장의 가로폭!! 너비!!
+	var h=100; //도장의 높이!!
+	//문서가 로드되면 초기화할 작업이 있을때 여기서 하자!!
+	function init(){
+		wrapper = document.getElementById("wrapper");	
+	}
+	
+	function stamp(){
+		//div안에다가 이미지를 출력하자!!
+		//해결책?? 진짜 태그를 생성하겠다!! 실행타임에!!
+		//wrapper.innerHTML="<img src=\"../images/stamp.png\">";
+		//문서내에 태그를 생성하여 부착하자!!
+		var img=document.createElement("img");//생성된 이미지에 경로 등록
+		img.src="../images/stamp.png";//생성된 이미지에 경로 등록
+		img.style.width=w+"px";
+		img.style.width=h+"px";
+		img.style.position="absolute";//절대위치 지정
+		img.style.left=(event.clientX-(w/2))+"px";//마우스 클릭시의 x좌표
+		
+		img.style.top=(event.clientY-(h/2))+"px";//마우스 클릭시의 y좌표
+
+
+
+		//DIV에 부착한다!! - 생성된 img를 자식요소로 등록
+		wrapper.appendChild(img);
+
+	}
+	</script>
+
+
+</head>
+<body onLoad="init()" onMouseDown="stamp()">
+	<div id="wrapper"></div>
+</body>
+</html>

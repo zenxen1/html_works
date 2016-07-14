@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>우주선</title>
+<style>
+/*body태그는 기본적으로 내용물과 조금 마진을 두므로, 그 값을 없애자!!!*/
+body{
+	margin:0px;
+}
+
+#bg{
+	width:100%;
+	height:870px;
+	/* background:url("../images/배경화면.jpg") no-repeat; */
+	background:url("../images/배경화면.png");
+	background-repeat:repeat - x;
+}
+
+#pic{
+	position:absolute;
+	left:0px;
+	top:300px;
+}
+/*총알을 화면에서 안보이게 하려면  left값을 음수화 시키자!!*/
+#bullet{
+	position:absolute;
+	left:-120px;
+	top:300px;
+}
+
+</style>
+<script>
+var x=0; // 백그라운드를 제어할 변수
+var posX=0; //우주선을 제어할 변수
+var posY=300;
+var shoot=posX-120;
+var sshoot=posY;
+
+//문서가 로드되면, 배경을 x축 방향으로 감소시키자!!
+function init(){
+	x-=5; //-5씩
+	document.getElementById("bg").style.backgroundPosition= x + "px 0px";
+	setTimeout("init()",10);
+
+}
+//키보드 입력을 인식하여, 특히 방향키 4개에 대해서만 반응을 보이자!!
+//우리가 키를 입력해도 컴퓨터는 이해못함...우리가 입력한 키를 10진수로
+//표현한 코드 체계가 중간에 관여한다..이 코드체계를 ASCII 코드라 한다.
+
+
+function joyStick(){
+	var key=event.keyCode; //우리가 누른 키보드값에 대응하는 아스키 코드값 반환!!!
+
+	var pic=document.getElementById("pic");
+
+	if(key==37){//좌측이동 left값 음수값으로 누적..
+		posX-=30;
+	}else if(key==38){ //상향이동 top값 음수값으로 누적..
+		posY-=30;
+	}else if(key==39){//우측이동 left 값 양수값으로 누적..
+		posX+=30;
+	}else if(key==40){//하향이동 top값으로 누적...
+		posY+=30;
+	}if(key==32){ //space bar를 누르면, 총알발사..
+		//총알의 left값을 증가 시키자!!!
+		shoot=posX;
+        sshoot=posY;
+		fire();
+	}
+
+	
+	
+	pic.style.left=posX+"px"
+	pic.style.top=posY+"px"
+
+}
+//총알을 날아가는 효과 주기 위한 함수!!
+function fire(){
+	var st;
+	var bullet=document.getElementById("bullet");
+	shoot+=10;
+	bullet.style.left=shoot +"px";
+	bullet.style.top=sshoot + "px";
+	if (shoot>=1500)
+	{
+		clearTimeout(st);
+		shoot=-120;
+	}else{
+		setTimeout("fire()",10);
+	}
+}
+
+
+</script>
+
+
+
+</head>
+<body onLoad="init()" onKeyDown="joyStick()">
+
+	<div id="bg">
+		<img src="../images/우주선.jpg"  id="pic">
+		<img src="../images/미사일.jpg" width="120px" id="bullet">
+	</div>
+
+</body>
+</html>

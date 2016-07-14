@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>이퀄라이져</title>
+<style>
+	body{margin:0px;}
+	#stage{
+	width:800px;
+	height:500px;
+	}
+</style>
+<script src ="../lib/lib.js"></script>
+<script>
+var bgArray = ["red","orange","yellow","green","blue","navy","purple",];
+var rectArray=new Array(); //사각형을 담아놓기 위한 배열 왜? 그래야 다른 함수에서 보이니깐!!
+
+var Rect = function(stage,bg,width,height,x,y){
+	this.stage=stage;
+	this.div;
+	this.bg=bg;
+	this.width=width;
+	this.height=height;
+	this.x=x;
+	this.y=y;
+	this.tagetY=40; //사각형이 늘어날 y축 좌표값
+	this.a=0.9;
+	
+
+	this.init = function(){
+		var me = this;
+
+		this.div=document.createElement("div");
+		this.div.style.background = this.bg;
+		this.div.style.width = this.width + "px";
+		this.div.style.height = this.height + "px";
+		
+		this.div.style.position = "absolute";
+		this.div.style.left = this.x + "px";
+		this.div.style.top = this.y + "px";
+
+		this.stage.appendChild(this.div);
+
+		this.div.addEventListener("mouseover",function(){
+			//alert(me.bg + "올렸어?");
+			me.tagetY=500;
+		});
+
+		this.div.addEventListener("mouseout",function(){
+			//alert(me.bg + "올렸어?");
+			me.tagetY=40;
+			//me.div.style.height = 40 + "px";
+		});
+
+		this.move();
+	}
+	var s;
+	this.move=function(){
+	 //지정된 tagetY 만큼 height를 늘리자.
+		var me = this;
+		var y=parseInt(this.div.style.height);
+		
+	
+		//내위치 =목적지 - 비율계수*(목적지 - 내위치);
+		this.div.style.height= this.tagetY- this.a * (this.tagetY - y) + "px";
+		
+		setTimeout(function(){
+			me.move();
+			
+		},10);
+	
+	}
+
+}
+
+window.addEventListener("load",function(){
+	init();
+});
+
+function init(){
+	for(var i=0;i<bgArray.length;i++){
+		var rec = new Rect(stage,bgArray[i],100,40,i*100,0);
+		rec.init();
+
+		rectArray[i] = rec;
+	}
+	dance();
+
+}
+
+function dance(){
+	for (var i=0;i<rectArray.length ;i++ )
+	{
+		rectArray[i].tagetY = getRandomByRange(500,0);
+	}
+	
+	setTimeout("dance()",200);
+}
+</script>
+</head>
+<body>
+<div id="stage"></div>
+</body>
+</html>

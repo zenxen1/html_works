@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>록맨</title>
+	<script src="../lib/lib.js"></script>
+	<script src="../lib/Block.js"></script>
+	<script src="../lib/Rockman.js"></script>
+	
+
+	<script>
+	var stage;
+	var rockman;
+	var block;
+	var blockArray = new Array();
+	var jump = false;
+	var a = 0;
+	var b = 0;
+
+	window.addEventListener("load",function(){
+		init();
+	});
+	
+	function init(){
+		document.body.style.margin="0px";
+		//무대 크기 설정하기
+		stage = document.getElementById("stage");
+		stage.style.width = screen.width + "px";
+		stage.style.height = 800 + "px";
+		stage.style.background = "yellow";
+
+		//주인공 등장하기
+		rockman = new Rockman(stage,60,60,100,0,"../images/rockman.png");
+		rockman.init();
+	
+		//블록 만들기
+		for(var i=0;i<70;i++){
+			
+			block = new Block(stage,50,20,60+(60*a),400+(60*b),"../images/Block.png");
+			block.init();
+			blockArray.push(block);
+
+			a = getRandomByRange(-30,30);
+			b = getRandomByRange(-7,7);
+
+
+			//console.log(blockArr[i]);
+		}
+
+		
+
+		window.addEventListener("keydown",function(){
+			var key = event.keyCode;
+			
+			switch(key){
+				case 32:jump=true; break;
+				case 37:rockman.velX = -2; break;
+				case 39:rockman.velX = +2;break;
+				console.log(rockman.velX);
+			}
+		});
+
+		window.addEventListener("keyup",function(){
+			var key = event.keyCode;
+
+			if(key==37 || key==39){
+				rockman.velX=0;
+			}
+			if(key==32){
+				jump =!jump;
+			}
+			
+		
+		});
+	
+	
+	}
+
+
+	</script>
+</head>
+<body>
+	<div id="stage"></div>
+</body>
+</html>
