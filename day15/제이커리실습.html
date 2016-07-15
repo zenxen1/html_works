@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>제이커리실습</title>
+	<style>
+	/*
+	누구를	#아이디,태그명 : 선택자!!(selector) 
+	(어떻게 처리할지)
+	*/
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>/*
+		jquery도 결국 누구를 어떻게 처리할지에 관한 문법구조를 갖는다!!!
+		다행스러운 것은, jquery의 선택자는 기존에 우리가 알고 있는 css 선택자를 그대로 따른다
+	*/
+	function hide(){
+		var bt = document.getElementById("bt");
+		bt.style.display = "none";
+	}
+	//window.addEventListener("load",function(){});
+	$(document).ready(function(){
+		$("button").hide(1000);
+		$("#bt2").show(1000);
+	});
+	
+	
+	
+	</script>
+</head>
+<body>
+	<input type="button" id="bt" value="나 곧사라질거임" onClick="hide()">
+	<button id="bt2">나 버튼</button>
+</body>
+</html>

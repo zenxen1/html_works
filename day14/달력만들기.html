@@ -1,85 +1,142 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>달력만들기</title>
-	<style>
-	#warpper{
-		width:724px;
-		height: 800px;
-		border: 1px solid red;
-		margin:auto;
-	}
-	#id{
-		width:100%;
-		height:40px;
-		background:#ffcc33;
-	}
-	#dayTiltle{
-		width:100%;
-		height:30px;
-		background:"ffcc66;
-	}
+<meta charset="UTF-8">
+<title>달력만들기</title>
+<style>
+#wrapper{
+	width:724px;
+	height:800px;
+	border:1px solid red;
+	margin:auto;
+}
+#up{
+	width:100%;
+	height:40px;
+	background:#ffff99;
+}
+#dayTitle{
+	width:100%;
+	height:30px;
+	background:#99ff00;
+	margin: 0px;
+}
+ul{
+	list-style:none;
+	width:100%;
+} 
+ul li{
+	float:left;
+	width:100px;
+}
+select{
+	width:200px;
+	height:40px;
+	background:#ff33ff;
+	color:#FFFFFF;
+	font-size:20pt;
+}
+</style>
+<script src="../lib/lib.js"></script>
+<script src="../lib/DateBox.js"></script>
+<script>
+var down;
+var sel_yy;
+var sel_mm;
+var sel_dd;
+var dayName=["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+
+window.addEventListener("load", function(){
+	init();
+});	
+
+function init(){
+	down=document.getElementById("down");
+
+	sel_yy=document.getElementById("sel_yy");
+	sel_mm=document.getElementById("sel_mm");
+	sel_dd=document.getElementById("sel_dd");
 	
-	ul{
-		list-style : none;
-		width:100%;
-
+	//년도 생성 
+	for(var i=1990; i<=2030;i++){
+		var op=document.createElement("option");
+		op.text=i;
+		sel_yy.add(op);
 	}
-	ul li{
-		float:left;
-		width:100px;
+	//월 생성 
+	for(var i=1; i<=12;i++){
+		var op=document.createElement("option");
+		op.text=i;
+		sel_mm.add(op);
 	}
-	</style>
-	<script src="../lib/DateBox.js"></script>
-	<script>
-	var down;
 
-	window.addEventListener("load",function(){
-	//총 42개의 날짜박스를 생성한다
+	createBox();
+}
+
+//기존에 출력된 달력을 모두 지운다!!
+function deleteBox(){
+	down.innerText="";
+}
+
+//달력 생성 
+function createBox(){
+	//현재 select박스에 선택한 값에 의한 날짜 정보 셋팅!!
+	var d = new Date(sel_yy.value+"-"+sel_mm.value+"-1");
+	//console.log(d);
+
+	//현재 요일을 구한다!! 0~6
+	//console.log(d.getDay()+"번째는 "+dayName[d.getDay()]);
+
+	//해당 월이 몇일까지 있나?
+	//d.setDate(0); //전달의 마지막날!!
+	//console.log(d);
 	
-		
-		init();
-		date();
-	});
 
-	function init(){
-		down=document.getElementById("down");
-		for(var i=0;i<42;i++){
-			var datebox = new DateBox(down,100,100,i)
-			datebox.init();
+	//최대 42개의 날짜 박스를 생성한다!!
+	var n=0;
+	var lastDate=getLastDate(sel_yy.value,sel_mm.value);
+
+	for(var i=1;i<=42;i++){
+		if( i>=d.getDay()&& i<=lastDate){ //해당 요일의 인덱스부터 날짜를 증가시킨다
+			n++;
+			var box = new DateBox(down, 100,100,n);
+			box.init();
+			console.log(d.getDay());
+		}else{
+			var box = new DateBox(down, 100,100,"");
+			box.init();
 		}
 	}
 
-	function date(){
-		var yy = document.getElementById("sel_yy");
-		var op = document.createElement("option");
-		for(var i=1999;i<=2050;i++){
-			op.text = i;
-			yy.add(op);
-		}
+}
 
-	}
-	</script>
+//down 영역에 선택한 날짜에 해당하는 달력이 출력!!
+function showCal(){
+	deleteBox(); //기존꺼 지우고
+	createBox(); //새로 생성
+}
+</script>
 </head>
 <body>
-	<div id="warpper">
-		<div id="up"></div>
-			<select id="sel_yy"></select>년도
-			<select id="sel_mm"></select>월
-			<select id="sel_dd"></select>일
-			<input type="button" value="검색">
-		<div id="dayTitle"></div>
-			<ul>
-				<li>일</li>
-				<li>월</li>
-				<li>화</li>
-				<li>수</li>
-				<li>목</li>
-				<li>금</li>
-				<li>토</li>
-			</ul>
-		<div id="down"></div>
+<div id="wrapper">
+	<div id="up">
+		<select id="sel_yy"></select>년도
+		<select id="sel_mm"></select>월
+		<input type="button" value="검색" onClick="showCal()">
 	</div>
+	<div id="dayTitle">
+		<ul>
+			<li>일</li>
+			<li>월</li>
+			<li>화</li>
+			<li>수</li>
+			<li>목</li>
+			<li>금</li>
+			<li>토</li>
+		</ul>
+	</div>
+	<div id="down"></div>
+</div>
 </body>
 </html>
+
