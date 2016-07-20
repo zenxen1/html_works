@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>project01</title>
+	<style>
+	body{margin:0px;}
+	#stage{
+		border:1px solid red;
+	}
+	</style>
+	<script src="../lib/lib.js"></script>
+	<script>
+	var stage;
+	var stage_width = 800;
+	var stage_height = 800;
+	var ballImg=[
+					"../images/볼1.png",
+					"../images/볼2.png",
+					"../images/볼3.png",
+					"../images/볼4.png",
+					"../images/볼5.png",
+					"../images/볼6.png"
+					 ];
+	var handImg="../images/hand.png";
+	var ball;
+	var hand;
+	var result;
+	var arr = new Array();
+	var r=false;
+
+	//ball을 정의 하자
+	var Ball = function(stage,width,height,x,y,velX,velY,src,rotate){
+		this.stage=stage;
+		this.img;
+		this.width=width;
+		this.height=height;
+		this.x=x;
+		this.y=y;
+		this.src=src;
+		this.rotate=rotate;
+		this.velX=velX;
+		this.velY=velY;
+	
+
+		this.init=function(){
+			this.img=document.createElement("img");
+			this.img.src=this.src;
+			this.img.style.width = this.width + "px";
+			this.img.style.height = this.height + "px";
+			this.img.style.position = "absolute";
+			this.img.style.left = this.x + "px";
+			this.img.style.top = this.y + "px";
+
+			this.stage.appendChild(this.img);
+			this.move();
+		}
+
+		this.move=function(){
+			var me = this;
+
+			this.rotate+=2;
+			this.img.style.transform="rotate("+this.rotate+"deg)";
+
+			result = hitTest(hand.img,ball.img);
+			//console.log(result);
+			
+			
+			//우측벽으로 나가는지 판단!!
+			if(this.x>=stage_width-100){
+				//console.log("적 우측벽에 도달핬였으요 "+this.x);
+				this.velX = -1*this.velX;
+                			
+			}
+			if(this.x<=0){
+				//console.log("적 좌측벽에 도달핬였으요 "+this.x);
+				this.velX = -1*this.velX;
+                			
+			}
+			if(this.y<=0){
+				//console.log("적 위벽에 도달핬였으요 "+this.y);
+				this.velY = -1*this.velY;
+                			
+			}
+			if(this.y>=stage_height-100){
+				//console.log("아래벽에 도달핬였으요 "+this.y);
+				this.velY = -1*this.velY;
+                			
+			}
+			if(result){
+				//console.log("손가락에 도달핬였으요 "+this.y);
+				this.velY = -1*this.velY;
+                			
+			}
+
+			this.x+=this.velX;
+			this.y+=this.velY;
+
+			this.img.style.left=this.x+"px";
+			this.img.style.top=this.y+"px";
+
+			setTimeout(function(){
+				me.move();
+			},10);
+		}
+	}
+
+	//손바닥을 정의 하자
+	var Hand = function(stage,width,height,x,y,src){
+		this.stage=stage;
+		this.width=width;
+		this.height=height;
+		this.x=x;
+		this.y=y;
+		this.img;
+		this.src=src;
+		this.st;
+		this.r=false;
+
+		this.init=function(){
+			this.img=document.createElement("img");
+			this.img.src=this.src;
+			this.img.style.width = this.width + "px";
+			this.img.style.height = this.height + "px";
+			this.img.style.position = "absolute";
+			this.img.style.left = this.x + "px";
+			this.img.style.top = this.y + "px";
+
+			this.stage.appendChild(this.img);
+			this.move();
+		}
+		this.move=function(){
+			var me = this;
+			console.log(this.r);
+			
+			
+			this.st = setTimeout(function(){
+				me.move();
+			},1000);
+
+			if(r){
+				console.log(r);
+				this.stage.removeChild(this.img);
+				clearTimeout(this.st);
+				r=false;
+			}
+			r=true;
+		}
+	}
+	window.addEventListener("keydown",function(){
+		if(event.keyCode==32){
+			ball = new Ball(stage,100,100,1,400,2,2,ballImg[0],0);	
+			ball.init();
+		}
+	
+	});
+
+	window.addEventListener("click",function(){
+		
+		var handw=100;
+		var handh=100;
+		var handx=event.clientX-(handw/2);
+		var handy=event.clientY-(handh/2);
+		
+	
+		if(r){
+			hand = new Hand(stage,handw,handh,handx,handy,handImg);
+			hand.init();
+		}
+		
+		
+
+		
+	
+	});
+
+	window.addEventListener("load",function(){
+		stage=document.getElementById("stage");
+
+		stage.style.width = stage_width + "px";
+		stage.style.height = stage_height + "px";
+	});
+
+	</script>
+</head>
+<body>
+	<div id="stage"></div>
+
+</body>
+</html>
