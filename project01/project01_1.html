@@ -65,10 +65,11 @@
 			this.img.style.transform="rotate("+this.rotate+"deg)";
 			
 			//손가락이 있다면 충돌 테스트
-			if(heat==1){
-				this.result = hitTest(hand.div,ball.img);
-				console.log(this.result);
-			}
+			for(var i=0;i<ballarr.length;i++)	
+				if(this.heat==1){
+					this.result = hitTest(hand.div,ballarr[i].img);
+					console.log(this.result);
+				}
 			//우측벽으로 나가는지 판단!!
 			if(this.x>=stage_width-100){
 				//console.log("적 우측벽에 도달핬였으요 "+this.x);
