@@ -29,7 +29,35 @@
 	var handcreate=true; //true : 손생성 , flase : 손생성 x
 	var heat=0; //0 heat test (X), 1 heat test (0)
 	var ballarr = new Array();
+	var energyarr = new Array();
+	var energy;
+	var countenergy=0;
+	var jum=0;
 
+	//에너지바를 정의 하자
+	var Energy= function(stage,width,height,x,y,src){
+		this.stage=stage;
+		this.width=width;
+		this.height=height;
+		this.x=x;
+		this.y=y;
+		this.img;
+		this.src=src;
+		
+
+		this.init=function(){
+			//손가락위에 조그만 div를 만들자
+			this.img=document.createElement("img");
+			this.img.src=this.src;
+			this.img.style.width = this.width + "px";
+			this.img.style.height = this.height + "px";
+			this.img.style.position = "absolute";
+			this.img.style.left = this.x + "px";
+			this.img.style.top = this.y + "px";
+
+			this.stage.appendChild(this.img);
+		}
+	}
 
 
 	//ball을 정의 하자
@@ -65,17 +93,21 @@
 			this.img.style.transform="rotate("+this.rotate+"deg)";
 			
 			//손가락이 있다면 충돌 테스트
-			for(var i=0;i<ballarr.length;i++){
-				if(heat==1){
-					this.result = hitTest(hand.div,ballarr[i].img);
-					
-					if(this.result){
-					//console.log("손가락에 도달핬였으요 "+this.y);
-					ballarr[i].velY = -1*ballarr[i].velY;
-					ballarr[i].velY = -5;
+				
+				for(var i=0;i<ballarr.length;i++){
+					if(ballarr[i]!=undefined){	
+						if(heat==1){
+							this.result = hitTest(hand.div,ballarr[i].img);
+							console.log(this.result);
+							if(this.result){
+							//console.log("손가락에 도달핬였으요 "+this.y);
+							ballarr[i].velY = -1*ballarr[i].velY;
+							ballarr[i].velY = -5;
+						
+							}
+						}
 					}
 				}
-			}
 			//우측벽으로 나가는지 판단!!
 			if(this.x>=stage_width-100){
 				//console.log("적 우측벽에 도달핬였으요 "+this.x);
@@ -91,6 +123,17 @@
           	}
 			if(this.y>=stage_height-100){
 				//console.log("아래벽에 도달핬였으요 "+this.y);
+				console.log(energyarr.length);
+					
+					if(countenergy < 10){
+						this.stage.removeChild(energyarr[countenergy].img)
+						delete energyarr[countenergy];
+						countenergy+=1;
+
+					}else{
+						console.log("게임오버");
+					}
+				
 				this.velY = -1*this.velY;
        		}
 			
@@ -124,7 +167,7 @@
 			this.div=document.createElement("div");
 			this.div.style.width = 20 + "px";
 			this.div.style.height = 10 + "px";
-			//this.div.style.background = "red";
+			this.div.style.background = "red";
 			this.div.style.position = "absolute";
 			this.div.style.left = (this.x+32) + "px";
 			this.div.style.top = this.y+5 + "px";
@@ -159,6 +202,9 @@
 				hit=0;
 				return;
 			} 
+
+			jum+=10;
+			document.getElementById("jumsu").value=jum;
 			
 			this.st = setTimeout(function(){
 				me.handdelete();
@@ -167,26 +213,31 @@
 		}
 		
 	}
+
 	window.addEventListener("load",function(){
 		stage=document.getElementById("stage");
 		stage.style.width = stage_width + "px";
 		stage.style.height = stage_height + "px";
 
-	init();
+		init();
 	});
 
 	//볼을 만들자
 	function init(){
 			
-		for(var i=0;i<2;i++){
+		for(var i=0;i<1;i++){
 
 			ball = new Ball(stage,100,100,1,400-(i*200),2,2,ballImg[i],0);	
 			ball.init();
 			ballarr.push(ball);
-			console.log(ballarr.length);
+			//console.log(ballarr.length);
 		}
-
-		
+		for(var i=0;i<10;i++){
+			energy = new Energy(stage,50,20,1+(i*50),1,"../images/Block.png");
+			energy.init();
+			energyarr.push(energy);
+			//console.log(energyarr.length);
+		}
 	}
 
 	window.addEventListener("keydown",function(){
@@ -223,7 +274,10 @@
 	</script>
 </head>
 <body>
-	<div id="stage"></div>
+	<div id="stage">
+		<br>
+		<input type="text" id="jumsu" value="0">점</input>
+	</div>
 
 </body>
 </html>
