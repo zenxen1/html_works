@@ -7,6 +7,9 @@
 	body{margin:0px;}
 	#stage{
 		border:1px solid red;
+		background-image:url("../project/bg.jpg");
+		background-repeat:no-repeat;
+		background-size: 800px 800px;
 	}
 	</style>
 	<script src="../lib/lib.js"></script>
@@ -34,7 +37,8 @@
 	var countenergy=0;
 	var jum=0;
 	var hero;
-
+	var itemarr=new Array();
+	var countitem=0;
 	//에너지바를 정의 하자
 	var Energy= function(stage,width,height,x,y,src){
 		this.stage=stage;
@@ -45,9 +49,8 @@
 		this.img;
 		this.src=src;
 		
-
 		this.init=function(){
-			//손가락위에 조그만 div를 만들자
+			
 			this.img=document.createElement("img");
 			this.img.src=this.src;
 			this.img.style.width = this.width + "px";
@@ -55,12 +58,9 @@
 			this.img.style.position = "absolute";
 			this.img.style.left = this.x + "px";
 			this.img.style.top = this.y + "px";
-
 			this.stage.appendChild(this.img);
 		}
 	}
-
-
 	//ball을 정의 하자
 	var Ball = function(stage,width,height,x,y,velX,velY,src,rotate){
 		this.stage=stage;
@@ -83,44 +83,62 @@
 			this.img.style.position = "absolute";
 			this.img.style.left = this.x + "px";
 			this.img.style.top = this.y + "px";
-
 			this.stage.appendChild(this.img);
 			this.move();
 		}
 		this.heat=function(){
-			//console.log(energyarr.length);
-			//for(var i=0;i<ballarr.length;i++){
-				//console.log(ballarr.length);
-				this.result = hitTest(hero.img,this.img);
-				//console.log(this.result);
+			
+			this.result1 = hitTest(hero.divup,this.img);
+			this.result2 = hitTest(hero.divleft,this.img);
+			this.result3 = hitTest(hero.divright,this.img);
+			
+			
+			
+			if(this.result1){
+				this.velY = -1*this.velY;
 				
 				
-				if(this.result){
-
-					this.velY = -1*this.velY;
-					//ballarr[i].velY = -5;
-					//console.log(ballarr[i].velY);
-					
-					if(countenergy < 10){
-
-						this.stage.removeChild(energyarr[countenergy].img)
-						delete energyarr[countenergy];
-						countenergy+=1;
-
-					}else{
-						//console.log("게임오버");
-					} 
-					jum+=10;
-					document.getElementById("jumsu").value=jum;
-				//}
+				if(countenergy < 10){
+					this.stage.removeChild(energyarr[countenergy].img)
+					delete energyarr[countenergy];
+					countenergy+=1;
+				}else{
+					//console.log("게임오버");
+				} 
 			}
+
+			if(this.result2){
+				this.velX = -1*this.velX;
 				
+				
+				if(countenergy < 10){
+					this.stage.removeChild(energyarr[countenergy].img)
+					delete energyarr[countenergy];
+					countenergy+=1;
+				}else{
+					//console.log("게임오버");
+				} 
+			}
 
+			if(this.result3){
+				this.velX = -1*this.velX;
+				
+				
+				if(countenergy < 10){
+					this.stage.removeChild(energyarr[countenergy].img)
+					delete energyarr[countenergy];
+					countenergy+=1;
+				}else{
+					//console.log("게임오버");
+				} 
+			}
+
+			this.img.style.width=this.width + "px";
+			this.img.style.height=this.height + "px";
+				
 		}
-
 		this.move=function(){
 			this.heat();
-
 			var me = this;
 			this.rotate+=2;
 			this.img.style.transform="rotate("+this.rotate+"deg)";
@@ -141,7 +159,6 @@
 						}
 					}
 				}
-
 			//우측벽으로 나가는지 판단!!
 			if(this.x>=stage_width-100){
 				//console.log("적 우측벽에 도달핬였으요 "+this.x);
@@ -161,19 +178,15 @@
        		}
 			
 			this.velY += this.gravity;
-
 			this.x+=this.velX ;
 			this.y+=this.velY;
-
 			this.img.style.left=this.x+"px";
 			this.img.style.top=this.y+"px";
-
 			setTimeout(function(){
 				me.move();
 			},10);
 		}
 	}
-
 	//손바닥을 정의 하자
 	var Hand = function(stage,width,height,x,y,src){
 		this.stage=stage;
@@ -184,7 +197,6 @@
 		this.img;
 		this.src=src;
 		this.st;
-
 		this.init=function(){
 			//손가락위에 조그만 div를 만들자
 			this.div=document.createElement("div");
@@ -194,8 +206,6 @@
 			this.div.style.position = "absolute";
 			this.div.style.left = (this.x+32) + "px";
 			this.div.style.top = this.y+5 + "px";
-
-
 			
 			this.img=document.createElement("img");
 			this.img.src=this.src;
@@ -204,12 +214,10 @@
 			this.img.style.position = "absolute";
 			this.img.style.left = this.x + "px";
 			this.img.style.top = this.y + "px";
-
 			this.stage.appendChild(this.img);
 			this.stage.appendChild(this.div);
 			this.handdelete();
 		}
-
 		this.handdelete=function(){
 			
 			var me = this;
@@ -225,7 +233,7 @@
 				hit=0;
 				return;
 			} 
-
+			
 			
 			
 			this.st = setTimeout(function(){
@@ -255,9 +263,36 @@
 			this.img.style.position = "absolute"
 			this.img.style.left = this.x + "px";
 			this.img.style.top = this.y + "px";
+			//위
+			this.divup=document.createElement("div");
+			this.divup.style.width = this.width-5 + "px";
+			this.divup.style.height = 5 + "px";
+			this.divup.style.background = "red";
+			this.divup.style.position = "absolute";
+			this.divup.style.left = (this.x) + "px";
+			this.divup.style.top = this.y+5 + "px";
+			//왼
+			this.divleft=document.createElement("div");
+			this.divleft.style.width = 5 + "px";
+			this.divleft.style.height = this.height-10+ "px";
+			this.divleft.style.background = "red";
+			this.divleft.style.position = "absolute";
+			this.divleft.style.left = (this.x) + "px";
+			this.divleft.style.top = this.y+10 + "px";
+			//오른	
+			this.divright=document.createElement("div");
+			this.divright.style.width = 5 + "px";
+			this.divright.style.height = this.height - 10 + "px";
+			this.divright.style.background = "red";
+			this.divright.style.position = "absolute";
+			this.divright.style.left = (this.x+this.width-10) + "px";
+			this.divright.style.top = this.y+10 + "px";
 	
 			
-			this.stage.appendChild(this.img)
+			this.stage.appendChild(this.img);
+			this.stage.appendChild(this.divup);
+			this.stage.appendChild(this.divleft);
+			this.stage.appendChild(this.divright);
 			this.move();
 		}
 		this.move=function(){
@@ -266,52 +301,108 @@
 			this.x= this.x + this.velX;
 			//console.log(this.x);
 			this.img.style.left = this.x + "px";
+			this.divup.style.left = this.x + "px";
+			this.divleft.style.left = this.x + "px";
+			this.divright.style.left = this.x+this.width-10 + "px";
 			
-
 			setTimeout(function(){
 				me.move();
 			},50);
-
 		}
 	}
+
+	//아이템을 정의해 보자
+	var Item =function(stage,width,height,x,y,src){
+		this.stage=stage;
+		this.width=width;
+		this.height=height;
+		this.img;
+		this.src=src;
+		this.x=x;
+		this.y=y;
+		this.velY=10;
+		
+		
+		this.init=function(){
+			this.img = document.createElement("img");
+			this.img.src = this.src;
+			this.img.style.width = this.width + "px";
+			this.img.style.height = this.height + "px";
+			this.img.style.position = "absolute"
+			this.img.style.left = this.x + "px";
+			this.img.style.top = this.y + "px";
+			
+	
+			
+			this.stage.appendChild(this.img);
+			
+			this.move();
+		}
+		this.moveheat=function(){
+			this.result = hitTest(hero.img,item.img);
+
+			if(this.result || this.y>=stage_height-100){
+				for(var i=0;i<ballarr.length;i++){
+					ballarr[i].width=50;
+					ballarr[i].height=50;
+				}
+
+				this.stage.removeChild(item.img);
+			}
+		}
+		this.move=function(){
+			this.moveheat();
+			var me = this;
+			
+			this.y= this.y + this.velY;
+			this.img.style.top = this.y + "px";
+			
+			
+			setTimeout(function(){
+				me.move();
+			},50);
+		}
+	}
+
 
 	window.addEventListener("load",function(){
 		stage=document.getElementById("stage");
 		stage.style.width = stage_width + "px";
 		stage.style.height = stage_height + "px";
-
 		init();
+		start();
+		
 	});
-
 	
 	function init(){
 		//hero를 만들자
-		hero = new Hero(stage,100,100,400,700,"../images/pica.jpg");
+		hero = new Hero(stage,100,100,400,700,"../project/hero.png");
 		hero.init();
 		//볼을 만들자	
-		for(var i=0;i<6;i++){
-			
-			ball = new Ball(stage,100,100,1,400-(i*10),2,2,ballImg[i],0);	
-			ball.init();
-			ballarr.push(ball);
-			//console.log(ballarr.length);
-		}
+		ball = new Ball(stage,100,100,1,400,2,2,ballImg[0],0);	
+		ball.init();
+		ballarr.push(ball);
+		//에너지바를 만들자
 		for(var i=0;i<10;i++){
 			energy = new Energy(stage,50,20,1+(i*50),1,"../images/Block.png");
 			energy.init();
 			energyarr.push(energy);
 			//console.log(energyarr.length);
 		}
-		
+		//아이템을 만들자
+		item =new Item(stage,100,100,200,200,"../images/ball3.png");
+		item.init();
+		itemarr.push(item);
+
 	}
 
-	window.addEventListener("keydown",function(){
-		key=event.keyCode;
+	function start(){
 
-		if (key ==32)
-		{
+		jum+=10;
+		document.getElementById("jumsu").value=jum;
+
+		if(jum%6000==0){
 			var r= parseInt(Math.random()*ballImg.length);
-
 			//x의 증가량에 대한 범위 랜덤 설정
 			var rx = getRandomByRange(5,2);
 			var ry = getRandomByRange(7,1);
@@ -319,14 +410,28 @@
 			ball.init();
 			ballarr.push(ball);
 		}
+		setTimeout("start()",1000);	
+	}
 
+	
+	window.addEventListener("keydown",function(){
+		key=event.keyCode;
+		if (key ==32)
+		{
+			var r= parseInt(Math.random()*ballImg.length);
+			//x의 증가량에 대한 범위 랜덤 설정
+			var rx = getRandomByRange(5,2);
+			var ry = getRandomByRange(7,1);
+			var ball = new Ball(stage,100,100,1,1,rx,ry,ballImg[r],0);
+			ball.init();
+			ballarr.push(ball);
+		}
 		switch(key){
 			case 37: hero.velX= -20;break;
 			case 39: hero.velX=20;break;
 		}
 	
 	});
-
 	window.addEventListener("keyup",function(){
 		//방향키를 눌렀다 뗄 경우만
 		var key=event.keyCode;
@@ -334,7 +439,6 @@
 			hero.velX=0;
 		}
 	});
-
 	window.addEventListener("click",function(){
 		var handw=100;
 		var handh=100;
@@ -348,10 +452,7 @@
 			heat =1;
 		}
 	});
-
 	
-
-
 	</script>
 </head>
 <body>
