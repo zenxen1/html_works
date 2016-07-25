@@ -109,7 +109,7 @@
 				this.velY = -1*this.velY;
 				
 				
-				if(countenergy < 10){
+				if(countenergy < 16){
 					this.stage.removeChild(energyarr[countenergy].img)
 					delete energyarr[countenergy];
 					countenergy+=1;
@@ -122,7 +122,7 @@
 				this.velX = -1*this.velX;
 				
 				
-				if(countenergy < 10){
+				if(countenergy < 16){
 					this.stage.removeChild(energyarr[countenergy].img)
 					delete energyarr[countenergy];
 					countenergy+=1;
@@ -135,7 +135,7 @@
 				this.velX = -1*this.velX;
 				
 				
-				if(countenergy < 10){
+				if(countenergy < 16){
 					this.stage.removeChild(energyarr[countenergy].img)
 					delete energyarr[countenergy];
 					countenergy+=1;
@@ -229,7 +229,7 @@
 			this.divup=document.createElement("div");
 			this.divup.style.width = this.width-5 + "px";
 			this.divup.style.height = 5 + "px";
-			this.divup.style.background = "red";
+			//this.divup.style.background = "red";
 			this.divup.style.position = "absolute";
 			this.divup.style.left = (this.x) + "px";
 			this.divup.style.top = this.y+5 + "px";
@@ -237,7 +237,7 @@
 			this.divleft=document.createElement("div");
 			this.divleft.style.width = 5 + "px";
 			this.divleft.style.height = this.height-10+ "px";
-			this.divleft.style.background = "red";
+			//this.divleft.style.background = "red";
 			this.divleft.style.position = "absolute";
 			this.divleft.style.left = (this.x) + "px";
 			this.divleft.style.top = this.y+10 + "px";
@@ -245,7 +245,7 @@
 			this.divright=document.createElement("div");
 			this.divright.style.width = 5 + "px";
 			this.divright.style.height = this.height - 10 + "px";
-			this.divright.style.background = "red";
+			//this.divright.style.background = "red";
 			this.divright.style.position = "absolute";
 			this.divright.style.left = (this.x+this.width-10) + "px";
 			this.divright.style.top = this.y+10 + "px";
@@ -294,6 +294,7 @@
 		this.y=y;
 		this.velY=10;
 		this.st;
+		this.rotate=0;
 		
 		
 		this.init=function(){
@@ -338,7 +339,7 @@
 				//ball 느려지기
 				case 1:
 					if(this.result){
-						ballspeed=100;
+						ballspeed=50;
 						oldjum=jum;
 						this.stage.removeChild(this.img);
 						clearTimeout(this.st);
@@ -367,7 +368,9 @@
 
 		this.move=function(){
 			var me = this;
-			
+
+			this.rotate+=10;
+			this.img.style.transform="rotate("+this.rotate+"deg)";			
 					
 			if(parseInt(this.y)>=parseInt(stage_height-50)){
 				this.stage.removeChild(this.img);
@@ -407,7 +410,7 @@
 		ball.init();
 		ballarr.push(ball);
 		//에너지바를 만들자
-		for(var i=0;i<10;i++){
+		for(var i=0;i<16;i++){
 			energy = new Energy(stage,50,20,1+(i*50),1,"../images/Block.png");
 			energy.init();
 			energyarr.push(energy);
@@ -428,7 +431,7 @@
 		jum+=10;
 		document.getElementById("jumsu").value=jum;
 		//볼을 주기적으로 생성하자
-		if(jum%10==0){
+		if(jum%600==0){
 			var r= parseInt(Math.random()*ballImg.length);
 			//x의 증가량에 대한 범위 랜덤 설정
 			var rx = getRandomByRange(5,2);
