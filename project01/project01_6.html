@@ -84,6 +84,7 @@
 		this.velX=velX;
 		this.velY=velY;
 		this.gravity=0.1;
+		this.st;
 	
 		this.init=function(){
 			this.img=document.createElement("img");
@@ -150,8 +151,8 @@
 		this.move=function(){
 			this.heat();
 			var me = this;
-			this.rotate+=2;
-			this.img.style.transform="rotate("+this.rotate+"deg)";
+			//this.rotate+=2;
+			//this.img.style.transform="rotate("+this.rotate+"deg)";
 			
 		
 			//우측벽으로 나가는지 판단!!
@@ -198,7 +199,7 @@
 			}
 			
 
-			setTimeout(function(){
+			this.st = setTimeout(function(){
 				me.move();
 			},ballspeed);
 		}
@@ -315,8 +316,8 @@
 			
 			//아이템 효과를 나타내자
 			this.result = hitTest(hero.img,this.img);
-			console.log(this.result);
-			console.log(itemR);
+			//console.log(this.result);
+			//console.log(itemR);
 			
 			
 			switch(itemR){
@@ -339,6 +340,23 @@
 					if(this.result){
 						ballspeed=100;
 						oldjum=jum;
+						this.stage.removeChild(this.img);
+						clearTimeout(this.st);
+						return;
+					}
+				;break;
+				
+				//porket 모두 없애기
+				case 2:
+					if(this.result){
+						for(var i=0;i<ballarr.length;i++){
+							if(ballarr[i] != undefined){
+								this.stage.removeChild(ballarr[i].img);
+								clearTimeout(ballarr[i].st);
+								delete ballarr[i];
+							}
+						}
+						
 						this.stage.removeChild(this.img);
 						clearTimeout(this.st);
 						return;
@@ -410,7 +428,7 @@
 		jum+=10;
 		document.getElementById("jumsu").value=jum;
 		//볼을 주기적으로 생성하자
-		if(jum%600==0){
+		if(jum%10==0){
 			var r= parseInt(Math.random()*ballImg.length);
 			//x의 증가량에 대한 범위 랜덤 설정
 			var rx = getRandomByRange(5,2);
@@ -422,9 +440,9 @@
 		}
 
 		//아이템을 주기적으로 생성하자
-		if(jum % 120 ==0){
+		if(jum % 160 ==0){
 			var x =  parseInt(Math.random()*800);
-			itemR =  parseInt(Math.random()*2);
+			itemR =  parseInt(Math.random()*3);
 			item =new Item(stage,50,50,x,0,itemImg[itemR]);
 			item.init();
 			itemarr.push(item);
