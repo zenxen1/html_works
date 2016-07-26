@@ -30,6 +30,10 @@
 					"../project/item1.png",
 					"../project/item2.png	",
 						];
+	var heroImg=[
+					"../project/hero.png",
+					"../project/hithero.png"
+						];
 	
 	var ball;
 	var count=0;
@@ -46,6 +50,7 @@
 	var counts=1;
 	var ballspeed = 10;
 	var itemR;//아이템 종류
+	
 
 	
 
@@ -103,6 +108,11 @@
 			this.result2 = hitTest(hero.divleft,this.img);
 			this.result3 = hitTest(hero.divright,this.img);
 			
+			//히트시 모양을 바꾸자
+			if(this.result1 || this.result2 || this.result3){
+				hero.img.src=heroImg[1];
+			}
+			
 			
 			
 			if(this.result1){
@@ -140,7 +150,7 @@
 					delete energyarr[countenergy];
 					countenergy+=1;
 				}else{
-					//console.log("게임오버");
+					gameover();
 				} 
 			}
 
@@ -269,12 +279,13 @@
 
 			if(this.x<=0){
 				//console.log("영웅 좌측벽에 도달핬였으요 "+this.x);
-				this.x = this.x + 10;
+				this.x=20; 
+				//this.x = this.x + 10;
              }
 			
 			if(this.x>=stage_width-100){
-				//console.log("영웅 우측벽에 도달핬였으요 "+this.x);
-				this.x = this.x - 10;
+				
+				this.x = 680;
        		}
 			
 			setTimeout(function(){
@@ -399,11 +410,12 @@
 		init();
 		start();
 		
+		
 	});
 	
 	function init(){
 		//hero를 만들자
-		hero = new Hero(stage,100,100,400,700,"../project/hero.png");
+		hero = new Hero(stage,100,100,400,700,heroImg[0]);
 		hero.init();
 		//볼을 만들자	
 		ball = new Ball(stage,100,100,1,100,2,2,ballImg[3],0);	
@@ -466,6 +478,11 @@
 		setTimeout("start()",1000);	
 	}
 
+	function gameover(){
+		//gameover 화면
+		location.href="gameover.html";
+	}
+	
 	
 	window.addEventListener("keydown",function(){
 		key=event.keyCode;
@@ -480,8 +497,8 @@
 			ballarr.push(ball);
 		}
 		switch(key){
-			case 37: hero.velX= -20;break;
-			case 39: hero.velX=20;break;
+			case 37: hero.velX= -20;hero.img.src=heroImg[0];;break;
+			case 39: hero.velX=20;hero.img.src=heroImg[0];;break;
 		}
 	
 	});
