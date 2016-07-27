@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>gameover</title>
+	<style>
+	body{margin:0px;}
+	#stage {
+		width : 800px;
+		height : 800px;
+		border:1px solid red;
+		background-image:url("../project/bg.jpg");
+		background-repeat:no-repeat;
+		background-size: 800px 800px;
+	}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+				a();
+			});
+
+		function a(){
+		var a=1;
+		while(true){
+			
+			if(a>100){
+				break; //반복문을 멈춤!!!//
+			}
+			a++;
+			
+				$("#over").animate({top: '50px'});
+				$("#over").animate({top: '0px'});
+			}
+		}
+
+	function regist(){
+		form1.action = "/project/writeuser";
+		form1.submit(); //전송메소드
+	}
+			
+
+	</script>
+</head>
+<body>
+	
+	<div id="stage">
+		<div id="over" style="position:absolute; text-align : center; font-size : 100pt; color:red;" >GAME OVER</div>
+		<div style="position:absolute; left:300px; top:300px; border:1px solid red;">
+			<table>
+				<form id="form1" method="post">
+				<tr>
+					<td><input type="text" size=5 name="user"></td>
+					<td><input type="button" value="입력" onClick="regist()"></input></td>
+				<tr/>
+				</form>
+				<%for(var i=0;i<dataList.length;i++){%>
+					<tr>
+						<td>유저<%=dataList[i].user%><td>
+						<td>점수는<%=dataList[i].jumsu%><td>
+					<tr>
+				<%}%>
+			</table>
+		</div>
+		<a href="/project/game">
+				<img src="../project/cat.png" style="width:100px;height:100px;position:absolute;left:100px;top:700px;"></img>
+		</a>	
+		<span style="position:absolute;top:700px;left:200px; font-size : 50pt;"><----RESTART</span>
+	</div>
+
+</body>
+</html>
