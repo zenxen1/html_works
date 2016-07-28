@@ -443,7 +443,7 @@
 		jum+=10;
 		document.getElementById("jumsu").value=jum;
 		//볼을 주기적으로 생성하자
-		if(jum%600==0){
+		if(jum%100==0){
 			var r= parseInt(Math.random()*ballImg.length);
 			//x의 증가량에 대한 범위 랜덤 설정
 			var rx = getRandomByRange(5,2);
@@ -465,7 +465,7 @@
 		}
 
 		//스테이지를 주지적으로 바꾸자
-		if(jum % 600 >=0 && jum % 600 < 60){
+		if(jum % 100 >=0 && jum % 600 < 60){
 			
 			if(flag=!flag){
 				
@@ -480,7 +480,7 @@
 
 	function gameover(){
 		//gameover 화면
-		location.href="gameover.html";
+		regist();
 	}
 	
 	

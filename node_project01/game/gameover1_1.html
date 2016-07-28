@@ -1,3 +1,6 @@
+<%
+	var json=dataList[0];
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,7 +12,7 @@
 		width : 800px;
 		height : 800px;
 		border:1px solid red;
-		background-image:url("../project/bg.jpg");
+		background-image:url("../project/gameoverbg.jpg");
 		background-repeat:no-repeat;
 		background-size: 800px 800px;
 	}
@@ -33,11 +36,14 @@
 				$("#over").animate({top: '0px'});
 			}
 		}
+		function regist(){
+			location.href = "/project/writeuser1/<%=json.board_id%>"+"/"+form1.user.value;
+		}
 
-	function regist(){
+	/*function regist(){
 		form1.action = "/project/writeuser";
 		form1.submit(); //전송메소드
-	}
+	}*/
 			
 
 	</script>
@@ -46,18 +52,20 @@
 	
 	<div id="stage">
 		<div id="over" style="position:absolute; text-align : center; font-size : 100pt; color:red;" >GAME OVER</div>
-		<div style="position:absolute; left:300px; top:300px; border:1px solid red;">
+		<div style="position:absolute; left:250px; top:200px; border:1px solid red;">
 			<table>
 				<form id="form1" method="post">
-				<tr>
-					<td><input type="text" size=5 name="user"></td>
-					<td><input type="button" value="입력" onClick="regist()"></input></td>
-				<tr/>
+					<tr>
+						<td><input type="text" size=10 name="user"></td>
+						<td><input type="button" value="입력" onClick="regist()"></input></td>
+					<tr/>
 				</form>
 				<%for(var i=0;i<dataList.length;i++){%>
 					<tr>
-						<td>유저<%=dataList[i].user%><td>
-						<td>점수는<%=dataList[i].jumsu%><td>
+						<!--<td>ID<%=dataList[i].board_id%><td>-->
+				
+						<td>이름 :<%=dataList[i].user%><td>
+						<td>점수 :<%=dataList[i].jumsu%><td>
 					<tr>
 				<%}%>
 			</table>

@@ -33,12 +33,28 @@ app.route("/project/write").post(function(request,response){
 		//response.writeHead(200,{"Content-Type" : "text/html;charset=utf-8;"});
 		//var content = fs.readFileSync("./game/gameover1_1.html","utf8");
 		response.redirect("/project/list");
-	
+		
 	});
 });
+//get방식으로 다시 구현
+app.route("/project/writeuser1/:board_id/:user").get(function(request,response){
+	var board_id=request.params.board_id;
+	var user = request.params.user;
+	console.log(board_id);
+	console.log(request.params.user);
+	var sql= "update game set user = '"+user+"' where board_id = "+board_id;
+	client.query(sql,function(error,data){
+		response.redirect("/project/list");
+	});
 
+	
+
+});
+
+
+//포스트방식의 유저 구현
 app.route("/project/writeuser").post(function(request,response){
-	//console.log(request.body.user);
+	console.log(request.body.board_id);
 
 	var sql ="insert into game(user) values ('"+request.body.user+"')";
 	console.log(sql);
@@ -56,7 +72,7 @@ app.route("/project/writeuser").post(function(request,response){
 app.route("/project/list").get(function(request,response){
 	response.writeHead(200,{"Content-Type" : "text/html;charset=utf-8;"});
 	
-	var sql="select * from game";
+	var sql="select * from game order by board_id desc limit 0,10";
 	client.query(sql,function(error,jum){
 		//console.log(jum);
 		var content = fs.readFileSync("./game/gameover1_1.html","utf8");
