@@ -34,7 +34,6 @@
 					"/project/hero.png",
 					"/project/hithero.png"
 						];
-	
 	var ball;
 	var count=0;
 	var ballarr = new Array();
@@ -50,9 +49,7 @@
 	var counts=1;
 	var ballspeed = 10;
 	var itemR;//아이템 종류
-	
-
-	
+	var send = true;
 
 	//에너지바를 정의 하자
 	var Energy= function(stage,width,height,x,y,src){
@@ -76,6 +73,7 @@
 			this.stage.appendChild(this.img);
 		}
 	}
+
 	//ball을 정의 하자
 	var Ball = function(stage,width,height,x,y,velX,velY,src,rotate){
 		this.stage=stage;
@@ -111,6 +109,7 @@
 			//히트시 모양을 바꾸자
 			if(this.result1 || this.result2 || this.result3){
 				hero.img.src=heroImg[1];
+			
 			}
 			
 			
@@ -153,11 +152,13 @@
 					gameover();
 				} 
 			}
+			
 
 			this.img.style.width=this.width + "px";
 			this.img.style.height=this.height + "px";
-				
+			
 		}
+
 		this.move=function(){
 			this.heat();
 			var me = this;
@@ -267,6 +268,7 @@
 			this.stage.appendChild(this.divright);
 			this.move();
 		}
+
 		this.move=function(){
 			var me = this;
 			
@@ -307,7 +309,6 @@
 		this.st;
 		this.rotate=0;
 		
-		
 		this.init=function(){
 			this.img = document.createElement("img");
 			this.img.src = this.src;
@@ -316,9 +317,7 @@
 			this.img.style.position = "absolute"
 			this.img.style.left = this.x + "px";
 			this.img.style.top = this.y + "px";
-			
-	
-			
+		
 			this.stage.appendChild(this.img);
 			
 			this.move();
@@ -330,7 +329,6 @@
 			this.result = hitTest(hero.img,this.img);
 			//console.log(this.result);
 			//console.log(itemR);
-			
 			
 			switch(itemR){
 				//ball 작아지기
@@ -402,15 +400,12 @@
 		}
 	}
 
-
 	window.addEventListener("load",function(){
 		stage=document.getElementById("stage");
 		stage.style.width = stage_width + "px";
 		stage.style.height = stage_height + "px";
 		init();
 		start();
-		
-		
 	});
 	
 	function init(){
@@ -432,10 +427,6 @@
 		//item =new Item(stage,50,50,200,0,"../project/item1.png");
 		//item.init();
 		//itemarr.push(item);
-
-		
-
-
 	}
 
 	function start(){
@@ -461,11 +452,10 @@
 			item =new Item(stage,50,50,x,0,itemImg[itemR]);
 			item.init();
 			itemarr.push(item);
-			
 		}
 
 		//스테이지를 주지적으로 바꾸자
-		if(jum % 100 >=0 && jum % 600 < 60){
+		if(jum % 100 >=0 && jum % 100 < 60){
 			
 			if(flag=!flag){
 				
@@ -482,8 +472,7 @@
 		//gameover 화면
 		regist();
 	}
-	
-	
+		
 	window.addEventListener("keydown",function(){
 		key=event.keyCode;
 		if (key ==32)
@@ -500,8 +489,8 @@
 			case 37: hero.velX= -20;hero.img.src=heroImg[0];;break;
 			case 39: hero.velX=20;hero.img.src=heroImg[0];;break;
 		}
-	
 	});
+
 	window.addEventListener("keyup",function(){
 		//방향키를 눌렀다 뗄 경우만
 		var key=event.keyCode;
@@ -511,11 +500,14 @@
 	});
 	
 	function regist(){
-		form1.action = "/project/write";
-		form1.submit(); //전송메소드
+		if(send){
+			form1.action = "/project/write";
+			form1.submit(); //전송메소드
+			send=false;
+			console.log(send);
+		}
 	}
-	
-	
+		
 	</script>
 </head>
 <body>
@@ -529,7 +521,7 @@
 		<div id="stagenum" style="text-align : center; font-size : 100pt; color:red;"></div>
 		<img src="../project/item.png" style="width:100px;height:120px;position:absolute;left:700px;top:20px;" ></img>
 	</div>
-	<input type="button" onClick="regist()">서버로</input>
+	<!--<input type="button" onClick="regist()">서버로</input>-->
 
 </body>
 </html>
