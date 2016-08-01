@@ -7,7 +7,7 @@ var ejs = require("ejs");
 
 var app=express();
 var client = mysql.createConnection({
-	url : "localhost",
+	url : "http://70.12.112.96/",
 	user : "root",
 	password : ""
 });
