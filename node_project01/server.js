@@ -7,7 +7,7 @@ var ejs = require("ejs");
 
 var app=express();
 var client = mysql.createConnection({
-	url : "localhost",
+	url : "http://70.12.112.96/",
 	user : "root",
 	password : ""
 });
@@ -21,11 +21,10 @@ app.route("/project/game").get(function(request,response){
 	var content = fs.readFileSync("./game/project01_7.html","utf8");
 	response.writeHead(200,{"Content-Type":"text/html;charset=utf-8"});
 	response.end(content);
-
 });
 
 app.route("/project/write").post(function(request,response){
-	console.log(request.body.jum);
+	//console.log(request.body.jum);
 
 	var sql ="insert into game(jumsu) values ("+request.body.jum+")";
 	client.query(sql,function(error,data){
@@ -36,23 +35,21 @@ app.route("/project/write").post(function(request,response){
 		
 	});
 });
+
 //get방식으로 다시 구현
 app.route("/project/writeuser1/:board_id/:user").get(function(request,response){
 	var board_id=request.params.board_id;
 	var user = request.params.user;
-	console.log(board_id);
-	console.log(request.params.user);
+	//console.log(board_id);
+	//console.log(request.params.user);
 	var sql= "update game set user = '"+user+"' where board_id = "+board_id;
 	client.query(sql,function(error,data){
 		response.redirect("/project/list");
 	});
-
-	
-
 });
 
-
 //포스트방식의 유저 구현
+/*
 app.route("/project/writeuser").post(function(request,response){
 	console.log(request.body.board_id);
 
@@ -63,11 +60,9 @@ app.route("/project/writeuser").post(function(request,response){
 		//response.writeHead(200,{"Content-Type" : "text/html;charset=utf-8;"});
 		//var content = fs.readFileSync("./game/gameover1_1.html","utf8");
 		response.redirect("/project/list");
-	
 	});
-
-
 });
+*/
 
 app.route("/project/list").get(function(request,response){
 	response.writeHead(200,{"Content-Type" : "text/html;charset=utf-8;"});
@@ -78,7 +73,6 @@ app.route("/project/list").get(function(request,response){
 		var content = fs.readFileSync("./game/gameover1_1.html","utf8");
 
 		response.end(ejs.render(content,{dataList:jum}));
-	
 	});
 });
 
